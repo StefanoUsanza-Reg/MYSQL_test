@@ -128,7 +128,7 @@ describe('test',function(){
             })
 
         })
-        describe.only('restock', function(){
+        describe('restock', function(){
             /*
                 As a store owner
                 I want controllare i prezzi proposti dai rivenditori scontati
@@ -183,15 +183,38 @@ describe('test',function(){
                 and r3 ha 15pcs a 120$, e offre uno sconto del 5% con ordini con importo_min>= 1000$,2% con >5pcs sconto extra del 2% se ordinato a settembre, spedizione min 4 giorni
                 than il rivenditore più veloce dovrebbe essere r3 con 4 giorni e con un prezzo finale di: 576.24€
             */            
-                it('fastRestock2 should return il rivenditore r3 è il più veloce consegnando in: 4 giorni, con un prezzo finale di: 576.24€',function(){
+            it('fastRestock should return il rivenditore r3 è il più veloce consegnando in: 4 giorni, con un prezzo finale di: 576.24€',function(){
+                //input
+                let nome_prodotto = "sedia"
+                let quant = 5
+                let data = new Date("2021-09-24")
+                con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
+                    if (err) throw err;
+                    assert.equal(app.fastRestock(result,quant,data), "il rivenditore r3 è il più veloce consegnando in: 4 giorni, con un prezzo finale di: 576.24€");
+                });
+            })
+            /*
+                As a store owner
+                I want controllare i prezzi proposti dai rivenditori e i tempi di spedizione
+                so that posso scegliere quello più conveniente e in caso di parità quello più veloce
+
+                given una richiesta di acquisto di 5X tastiere
+                when r1 ha 20pcs a 50$, spedizione min 5 giorni
+                and r2 ha 30pcs a 55$, spedizione min 7 giorni
+                and r3 ha 25pcs a 50$, spedizione min 4 giorni
+                than il rivenditore più conveniente dovrebbe essere r3 con un prezzo finale di: 50€, spedizione minima: 4 giorni
+            */            
+                it('finalRestock should return il rivenditore r3 è il più conveniente con un prezzo finale di: 50€, spedizione minima: 4 giorni',function(){
                     //input
-                    let nome_prodotto = "sedia"
+                    let nome_prodotto = "tastiera"
                     let quant = 5
                     let data = new Date("2021-09-24")
                     con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
                         if (err) throw err;
-                        assert.equal(app.fastRestock(result,quant,data), "il rivenditore r3 è il più veloce consegnando in: 4 giorni, con un prezzo finale di: 576.24€");
+                        assert.equal(app.finalRestock(result,quant,data), "il rivenditore r3 è il più conveniente con un prezzo finale di: 250€, spedizione minima: 4 giorni");
+                        //chiudi la connessione al database dopo l'ultimo test
+                        con.end()
                     });
-                })
+                })            
         })
 })
