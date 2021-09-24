@@ -172,5 +172,26 @@ describe('test',function(){
                     assert.equal(app.restock(result,quant,data), "il rivenditore r2 è il più conveniente con un prezzo finale di: 1459.2€, spedizione minima: 7 giorni");
                 });
             })
+            /*
+                As a store owner
+                I want controllare i tempi di consegna offerti dai rivenditori
+                so that posso scegliere quello più veloce
+
+                given una richiesta di acquisto di 5X sedie fatta il 24 settembre
+                when r1 ha 10pcs a 110$, e offre uno sconto del 5% con ordini con importo_min>= 1000$, spedizione min 5 giorni
+                and r2 ha 8pcs a 100$, e offre uno sconto del 3% con ordini con >5pcs, o del 5% con >10pcs, spedizione min 7 giorni
+                and r3 ha 15pcs a 120$, e offre uno sconto del 5% con ordini con importo_min>= 1000$,2% con >5pcs sconto extra del 2% se ordinato a settembre, spedizione min 4 giorni
+                than il rivenditore più veloce dovrebbe essere r3 con 4 giorni e con un prezzo finale di: 576.24€
+            */            
+                it('fastRestock2 should return il rivenditore r3 è il più veloce consegnando in: 4 giorni, con un prezzo finale di: 576.24€',function(){
+                    //input
+                    let nome_prodotto = "sedia"
+                    let quant = 5
+                    let data = new Date("2021-09-24")
+                    con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
+                        if (err) throw err;
+                        assert.equal(app.fastRestock(result,quant,data), "il rivenditore r3 è il più veloce consegnando in: 4 giorni, con un prezzo finale di: 576.24€");
+                    });
+                })
         })
 })
