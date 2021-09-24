@@ -233,5 +233,9 @@ module.exports = {
         var migliore = "il rivenditore " + rivenditore + " è il più conveniente con un prezzo finale di: "+ prezzo_scontato + "€, spedizione minima: " + spedizione + " giorni"
         console.log(migliore)
         return migliore
+    },
+    vuoto: function(result){
+        if(result[0]==null)
+            return "vuoto"
     }
 }

@@ -212,9 +212,21 @@ describe('test',function(){
                     con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
                         if (err) throw err;
                         assert.equal(app.finalRestock(result,quant,data), "il rivenditore r3 è il più conveniente con un prezzo finale di: 250€, spedizione minima: 4 giorni");
-                        //chiudi la connessione al database dopo l'ultimo test
-                        con.end()
                     });
                 })            
+        })
+        describe('result vuoto',function(){
+            it('vuoto should return vuoto', function(){
+                //input
+                let nome_prodotto = "tastiera"
+                let quant = 50
+                let data = new Date("2021-09-24")
+                con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
+                    if (err) throw err;
+                    assert.equal(app.vuoto(result), "vuoto");
+                    //chiudi la connessione al database dopo l'ultimo test
+                    con.end()
+                });                
+            })
         })
 })
