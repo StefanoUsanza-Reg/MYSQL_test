@@ -1,8 +1,11 @@
 const btnRicerca = document.getElementById('ricerca')
+const tabella = document.getElementById("tabella")
+const tabella1= document.createElement("tbody")
+let visualizzaData =""
 
-    function sconto(numero,percentuale){
-        return numero - (numero * percentuale)/100
-    }
+function sconto(numero,percentuale){
+    return numero - (numero * percentuale)/100
+}
 
 function restock(result,quant,data){
 
@@ -15,6 +18,7 @@ function restock(result,quant,data){
     var prezzo_scontato = sconto(sconto(result[0].prezzo*quant,result[0].valore),result[0].valore_extra)
     var rivenditore = result[0].nomeRivenditore
     var spedizione = result[0].spedizione_min
+    visualizza(result,prezzo_scontato,0)
     console.log("il rivenditore "+ rivenditore +" può accettare la richiesta con un prezzo finale di: "+ prezzo_scontato+"€ , spedizione minima: " + spedizione + " giorni")
     var tempScontato
     var tempSpedizione
@@ -24,6 +28,7 @@ function restock(result,quant,data){
             tempScontato = sconto(sconto(result[i].prezzo*quant,result[i].valore),result[i].valore_extra)
             tempScontato = Math.round((tempScontato + Number.EPSILON) * 100) / 100;
             tempSpedizione = result[i].spedizione_min
+            visualizza(result,tempScontato,i)
             console.log("il rivenditore " + result[i].nomeRivenditore + " può accettare la richiesta con un prezzo finale di: "+ tempScontato + "€, spedizione minima: " + tempSpedizione + " giorni")
             if(tempScontato<prezzo_scontato){
                 prezzo_scontato = tempScontato
@@ -42,6 +47,7 @@ function restock(result,quant,data){
             tempScontato = sconto(result[i].prezzo*quant,result[i].valore)
             tempScontato = Math.round((tempScontato + Number.EPSILON) * 100) / 100;
             tempSpedizione = result[i].spedizione_min
+            visualizza(result,tempScontato,i)
             console.log("il rivenditore " + result[i].nomeRivenditore + " può accettare la richiesta con un prezzo finale di: "+ tempScontato + "€, spedizione minima: " + tempSpedizione + " giorni")
             if(tempScontato<prezzo_scontato){
                 prezzo_scontato = tempScontato
@@ -119,29 +125,43 @@ function fastRestock(result,quant,data){
     return migliore
 }
 
+function visualizza(result,prezzo_scontato,i){
+    tabella1.innerHTML = visualizzaData
+    tabella.appendChild(tabella1) 
+    
+    visualizzaData += "<tr> <td>" + result[i].nomeRivenditore + "</td> <td>" + result[i].prezzo  + 
+    "€</td> <td>"+ prezzo_scontato +"€</td> <td>"+ result[i].spedizione_min + " giorni</td></tr>"
+
+    tabella1.innerHTML = visualizzaData
+    tabella.appendChild(tabella1)
+
+}
+
 btnRicerca.onclick = ()=>{
     const nome_prodotto = document.getElementById('nome_prodotto').value
     const quant = document.getElementById('quant').value
     const priority = document.getElementById('priority').value
     const data = new Date(Date.now())
+    visualizzaData = ""
 
     //fetch("http://localhost:3000/restock/economic/"+nome_prodotto+"/"+quant).then(() => console.log("test"));
 
-    //ricerca di tutti i clienti nel database
-fetch('http://localhost:3000/restock/'+nome_prodotto+'/'+quant)
-.then(response => response.json())
-  .then(result => {
-      if(result[0]!=null){
-        if(priority=="Economic")
-        console.log(restock(result,quant,data))
-        else if(priority=='Fast')
-        console.log(fastRestock(result,quant,data))    
-      }
-      else
-        console.log("nessun rivenditore trovato")
-      
-    });
-
-
-
+    //ricerca dei rivenditori per il restock del prodotto richiesto
+    fetch('http://localhost:3000/restock/'+nome_prodotto+'/'+quant)
+    .then(response => response.json())
+    .then(result => {
+        //trovati dei rivenditori che possono soddisfare la richiesta
+        if(result[0]!=null){
+            //evidenzia il rivenditore più economico
+            if(priority=="Economic"){
+                console.log(restock(result,quant,data))
+            }
+            //evidenzia il rivenditore più veloce
+            else if(priority=='Fast')
+            console.log(fastRestock(result,quant,data))    
+        }
+        //nessun rivenditore può soddisfare la richiesta
+        else
+            console.log("nessun rivenditore trovato")   
+        });
 }
