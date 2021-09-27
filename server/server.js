@@ -8,9 +8,6 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const assert = require('chai').assert
-const expect = require('chai').expect
-
 var mysql = require('mysql');
 
 var con = mysql.createConnection({
@@ -19,15 +16,21 @@ var con = mysql.createConnection({
   password: "",
   database: "restock"
 });
-con.connect(function(err) {
-    if (err) throw err;
-    console.log("connected to the database!")
-})
 let QUERY = ""
 
 //server express in ascolto sulla porta 3000
 app.listen(3000, ()=>{
     console.log("server listening on port 3000:")
+})
+
+app.get('/restock/nomi_prodotti',(req,res)=>{
+    QUERY= "SELECT prodotto.nome as nomeProdotto FROM prodotto"
+    con.query(QUERY, function (err, result, fields) {
+        if (err) throw err;
+        //con.end()
+        res.send(result)
+    });
+
 })
 
 app.get('/restock/:nome_prodotto/:quant',(req,res)=>{
