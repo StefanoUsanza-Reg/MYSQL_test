@@ -16,6 +16,11 @@ var con = mysql.createConnection({
   password: "",
   database: "restock"
 });
+con.connect(function(err) {
+    if (err) throw err;
+    console.log("connected to the database!")
+})
+
 let QUERY = ""
 
 //server express in ascolto sulla porta 3000
