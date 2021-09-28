@@ -18,13 +18,12 @@ Quando si vuole effettuare un ordine di restock, è sufficente inserire il nome 
 
 ![Screenshot (3)](https://user-images.githubusercontent.com/90613113/135053101-36ea0f99-0da9-4f37-8473-07d8f0b5ec0f.png)
 
-
 Con i dati inseriti verrà effettuata una richiesta al server dove si trova il database che contiene tutti i dati relativi ai prodotti ordinabili e i rivenditori che li offrono.
 Dopo aver applicato gli sconti disponibili, viene visualizzata una lista con tutti i rivenditori che sono in grado di soddisfare la richiesta di restock: se viene selezionata una quantità di prodotti superiore a quella disponibile per un rivenditore, questo non verrà mostrato.
 In base alla priorità di ricerca selezionata verrà evidenziato il rivenditore più opportuno: 
 - economica, viene evidenziato il rivenditore che offre il prezzo più basso, e in caso di più prezzi uguali, verrà scelto il più veloce a consegnare
 - veloce, viene evidenziato il rivenditore che offre la spedizione più veloce, e in caso di tempistiche uguali, verrà scelto il più economico
 
-//immagine tabella
+![Screenshot (11)](https://user-images.githubusercontent.com/90613113/135069250-d5e1c817-d68d-4620-b68d-7d0d87cd252d.png)
 
 L'utilizzatore del servizio può sempre scegliere il rivenditore che preferisce, anche se non è quello evidenziato dal sistema; per questo a fianco di ogni rivenditore è presente un tasto che permette di concludere l'ordine con quel rivenditore specifico.
