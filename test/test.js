@@ -47,7 +47,7 @@ describe('test',function(){
                 assert.equal(app.sconto(result,quant), 1489.92);
             });
         })
-        it('sconto extra should return 1441.19', function(){
+        it.only('sconto extra should return 1441.19', function(){
             //input
             let nome_prodotto = 'monitor'
             let quant = 12

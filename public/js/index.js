@@ -34,18 +34,16 @@ function restock(result,quant,data){
     var spedizione = result[0].spedizione_min
     var prezzo = result[0].prezzo
     temp[0]= prezzo_scontato
-    //visualizza(result,prezzo_scontato,0)
     //console.log("il rivenditore "+ rivenditore +" può accettare la richiesta con un prezzo finale di: "+ prezzo_scontato+"€ , spedizione minima: " + spedizione + " giorni")
     var tempScontato
     var tempSpedizione
-    for(let i=1; i<result.length;i++){
+    for(let i=0; i<result.length;i++){
         //sconto extra valido
         if(result[i].data_inizio<=data && result[i].data_fine>=data){
             tempScontato = sconto(sconto(result[i].prezzo*quant,result[i].valore),result[i].valore_extra)
             tempScontato = Math.round((tempScontato + Number.EPSILON) * 100) / 100;
             tempSpedizione = result[i].spedizione_min
             temp[i]=tempScontato
-            //visualizza(result,tempScontato,i)
             //console.log("il rivenditore " + result[i].nomeRivenditore + " può accettare la richiesta con un prezzo finale di: "+ tempScontato + "€, spedizione minima: " + tempSpedizione + " giorni")
             if(tempScontato<prezzo_scontato){
                 prezzo_scontato = tempScontato
@@ -69,7 +67,6 @@ function restock(result,quant,data){
             tempScontato = Math.round((tempScontato + Number.EPSILON) * 100) / 100;
             tempSpedizione = result[i].spedizione_min
             temp[i]=tempScontato
-            //visualizza(result,tempScontato,i)
             //console.log("il rivenditore " + result[i].nomeRivenditore + " può accettare la richiesta con un prezzo finale di: "+ tempScontato + "€, spedizione minima: " + tempSpedizione + " giorni")
             if(tempScontato<prezzo_scontato){
                 prezzo_scontato = tempScontato
@@ -89,8 +86,8 @@ function restock(result,quant,data){
         }           
     }
     //evidenzia il rivenditore più conveniente
-    //console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     //var migliore = "il rivenditore " + rivenditore + " è il più conveniente con un prezzo finale di: "+ prezzo_scontato + "€, spedizione minima: " + spedizione + " giorni"
+    //return migliore
     visualizza(result,temp,rivenditore,prezzo_scontato,spedizione,prezzo,index)
 }
 //individua il rivenditore più veloce
@@ -170,13 +167,13 @@ function visualizza(result,temp,rivenditore,prezzo_scontato,spedizione,prezzo,in
     visualizzaData = ""
     tabella1.innerHTML = visualizzaData
     tabella.appendChild(tabella1)
-    visualizzaData +=  "<tr style='background-color: green'> <td>" + rivenditore + "</td> <td>" + prezzo + 
-    "€</td> <td>"+ prezzo_scontato +"€</td> <td>"+ spedizione + " giorni</td></tr>"
+    visualizzaData +=  "<tr style='background-color: green; color: white'> <td>" + rivenditore + "</td> <td>" + prezzo + 
+    "€</td> <td>"+ prezzo_scontato +"€</td> <td>"+ spedizione + " giorni</td> <td> <a href='#' class='btn btn-primary'><i class='fas fa-check'></i></a> </td></tr>"
 
     for(let i=0; i<result.length; i++){
         if(index != i){
         visualizzaData += "<tr> <td>" + result[i].nomeRivenditore + "</td> <td>" + result[i].prezzo  + 
-        "€</td> <td>"+ temp[i] +"€</td> <td>"+ result[i].spedizione_min + " giorni</td></tr>"     
+        "€</td> <td>"+ temp[i] +"€</td> <td>"+ result[i].spedizione_min + " giorni</td> <td> <a href='#' class='btn btn-primary'><i class='fas fa-check'></i></a> </td></tr>"     
         }  
     }
 
@@ -191,7 +188,7 @@ btnRicerca.onclick = ()=>{
     const nome_prodotto = document.getElementById('input').value
     const quant = document.getElementById('quant').value
     const priority = document.getElementById('priority').value
-    const data = new Date(Date.now())
+    const data = new Date().toJSON().slice(0, 10)
 
     //ricerca dei rivenditori per il restock del prodotto richiesto
     fetch('http://localhost:3000/restock/'+nome_prodotto+'/'+quant)
