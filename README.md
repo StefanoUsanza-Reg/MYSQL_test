@@ -24,6 +24,6 @@ In base alla priorità di ricerca selezionata verrà evidenziato il rivenditore 
 - economica, viene evidenziato il rivenditore che offre il prezzo più basso, e in caso di più prezzi uguali, verrà scelto il più veloce a consegnare
 - veloce, viene evidenziato il rivenditore che offre la spedizione più veloce, e in caso di tempistiche uguali, verrà scelto il più economico
 
-![Screenshot (10)](https://user-images.githubusercontent.com/90613113/135063871-27c3c262-ad68-4e5d-aa51-f8db2407c66b.png)
+![Screenshot (11)](https://user-images.githubusercontent.com/90613113/135069250-d5e1c817-d68d-4620-b68d-7d0d87cd252d.png)
 
 L'utilizzatore del servizio può sempre scegliere il rivenditore che preferisce, anche se non è quello evidenziato dal sistema; per questo a fianco di ogni rivenditore è presente un tasto che permette di concludere l'ordine con quel rivenditore specifico.
