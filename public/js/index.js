@@ -23,7 +23,8 @@ function sconto(numero,percentuale){
 }
 //individua il riveditore più economico
 function restock(result,quant,data){
-    temp = []
+    let temp = []
+    let index = 0
     //controllo validità sconti
     for(let i=0; i<result.length; i++){
         if(result[i].quantità_min>quant || result[i].importo_minimo>(result[i].prezzo*quant))
@@ -53,12 +54,14 @@ function restock(result,quant,data){
                 rivenditore = result[i].nomeRivenditore
                 spedizione = tempSpedizione
                 prezzo = result[i].prezzo
+                index = i
             }
             else if(tempScontato==prezzo_scontato){
                 if(tempSpedizione<spedizione){
                     rivenditore = result[i].nomeRivenditore
                     spedizione = tempSpedizione
                     prezzo = result[i].prezzo 
+                    index = i
                 }
             }                     
         }           
@@ -75,12 +78,14 @@ function restock(result,quant,data){
                 rivenditore = result[i].nomeRivenditore
                 spedizione = tempSpedizione
                 prezzo = result[i].prezzo
+                index = i
             }
             else if(tempScontato==prezzo_scontato){
                 if(tempSpedizione<spedizione){
                     rivenditore = result[i].nomeRivenditore
                     spedizione = tempSpedizione 
                     prezzo = result[i].prezzo
+                    index = i
                 }
             }                    
         }           
@@ -88,11 +93,12 @@ function restock(result,quant,data){
     //evidenzia il rivenditore più conveniente
     //console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     //var migliore = "il rivenditore " + rivenditore + " è il più conveniente con un prezzo finale di: "+ prezzo_scontato + "€, spedizione minima: " + spedizione + " giorni"
-    visualizza(result,temp,rivenditore,prezzo_scontato,spedizione,prezzo)
+    visualizza(result,temp,rivenditore,prezzo_scontato,spedizione,prezzo,index)
 }
 //individua il rivenditore più veloce
 function fastRestock(result,quant,data){
-    temp = []
+    let temp = []
+    let index = 0
     //controllo validità sconti
     for(let i=0; i<result.length; i++){
         if(result[i].quantità_min>quant || result[i].importo_minimo>(result[i].prezzo*quant))
@@ -120,12 +126,14 @@ function fastRestock(result,quant,data){
                 rivenditore = result[i].nomeRivenditore
                 spedizione = tempSpedizione
                 prezzo = result[i].prezzo
+                index = i
             }
             else if(tempSpedizione==spedizione){
                 if(tempScontato<prezzo_scontato){
                     prezzo_scontato = tempScontato
                     rivenditore = result[i].nomeRivenditore
                     prezzo = result[i].prezzo
+                    index = i
                 }
             }                     
         }           
@@ -141,12 +149,14 @@ function fastRestock(result,quant,data){
                 rivenditore = result[i].nomeRivenditore
                 spedizione = tempSpedizione
                 prezzo = result[i].prezzo
+                index = i
             }
             else if(tempSpedizione==spedizione){
                 if(tempScontato<prezzo_scontato){
                     prezzo_scontato = tempScontato
                     rivenditore = result[i].nomeRivenditore
                     prezzo = result[i].prezzo
+                    index = i
                 }
             }                    
         }           
@@ -154,11 +164,11 @@ function fastRestock(result,quant,data){
     //evidenzia il rivenditore più conveniente
     //console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     //var migliore = "il rivenditore " + rivenditore + " è il più veloce consegnando in: "+ spedizione+" giorni, con un prezzo finale di: "+ prezzo_scontato + "€"
-    visualizza(result,temp,rivenditore,prezzo_scontato,spedizione,prezzo)
+    visualizza(result,temp,rivenditore,prezzo_scontato,spedizione,prezzo,index)
     //return migliore
 }
 //inserisce i dati in una tabella
-function visualizza(result,temp,rivenditore,prezzo_scontato,spedizione,prezzo){
+function visualizza(result,temp,rivenditore,prezzo_scontato,spedizione,prezzo,index){
     visualizzaData = ""
     tabella1.innerHTML = visualizzaData
     tabella.appendChild(tabella1)
@@ -166,8 +176,10 @@ function visualizza(result,temp,rivenditore,prezzo_scontato,spedizione,prezzo){
     "€</td> <td>"+ prezzo_scontato +"€</td> <td>"+ spedizione + " giorni</td></tr>"
 
     for(let i=0; i<result.length; i++){
+        if(index != i){
         visualizzaData += "<tr> <td>" + result[i].nomeRivenditore + "</td> <td>" + result[i].prezzo  + 
-        "€</td> <td>"+ temp[i] +"€</td> <td>"+ result[i].spedizione_min + " giorni</td></tr>"    
+        "€</td> <td>"+ temp[i] +"€</td> <td>"+ result[i].spedizione_min + " giorni</td></tr>"     
+        }  
     }
 
 
