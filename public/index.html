@@ -19,12 +19,8 @@
     background-color: transparent;">
 <div class="card-body" style="text-align: center;">
     <form class="container-fluid" style="text-align: center;">
-          <div class="col-auto">
-            <label style="color: rgb(211, 73, 31);">nome prodotto</label>
-              <select class="form-select" required aria-label="select example" id="nome_prodotto">
-                <option>select a product</option>
-              </select>
-          </div>
+          <input id="input" class="form-control mr-sm-2" type="search" placeholder="Select a product" aria-label="Search" list="prodotti">
+          <datalist id="prodotti"></datalist>
           <div class="col-auto"> 
             <label style="color: rgb(211, 73, 31);">quantità</label>
             <input type="number" class="form-control" id="quant" placeholder="">

@@ -1,22 +1,20 @@
 const btnRicerca = document.getElementById('ricerca')
 const tabella = document.getElementById("tabella")
 const tabella1= document.createElement("tbody")
-const nomeProdotto = document.getElementById('nome_prodotto')
-let prodotto = document.createElement('option')
 let visualizzaData =""
 
 //inserimento dei dati estratti dal database nei campi di selezione
-function inserisciNomi(){
-fetch('http://localhost:3000/restock/nomi_prodotti')
-.then(response => response.json())
-.then(result => {
-      for (let i=0; i<result.length; i++){
-        prodotto.innerHTML= result[i].nomeProdotto
-        nomeProdotto.appendChild(prodotto)
-        prodotto = document.createElement('option')
+function search(result){
+    const prodotti= document.getElementById("prodotti")
+    let prodotti1= document.createElement("option")
+  
+    for(let i=0; i<result.length; i++){
+        prodotti1.innerHTML =result[i].nomeProdotto
+        prodotti.appendChild(prodotti1)
+        prodotti1= document.createElement("option")
     }
-})    
-}
+  
+  }
 //calcola lo sconto di un numero in base ad una percentuale
 function sconto(numero,percentuale){
     return numero - (numero * percentuale)/100
@@ -189,9 +187,8 @@ function visualizza(result,temp,rivenditore,prezzo_scontato,spedizione,prezzo,in
 
 }
 
-
 btnRicerca.onclick = ()=>{
-    const nome_prodotto = document.getElementById('nome_prodotto').value
+    const nome_prodotto = document.getElementById('input').value
     const quant = document.getElementById('quant').value
     const priority = document.getElementById('priority').value
     const data = new Date(Date.now())
@@ -215,4 +212,9 @@ btnRicerca.onclick = ()=>{
             console.log("nessun rivenditore trovato")   
         });
 }
-inserisciNomi()
+
+fetch('http://localhost:3000/restock/nomi_prodotti')
+.then(response => response.json())
+.then(result => {
+    search(result)
+})
