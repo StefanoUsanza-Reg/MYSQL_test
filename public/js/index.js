@@ -21,7 +21,7 @@ function visualizza(results){
     visualizzaData = ""
     tabella1.innerHTML = visualizzaData
     tabella.appendChild(tabella1)
-    if(results[0]==null){
+    if(results==null){
         visualizzaData =""
     }
     else{
@@ -45,7 +45,7 @@ btnRicerca.onclick = ()=>{
     const quant = document.getElementById('quant').value
     const priority = document.getElementById('priority').value
     error.innerHTML = ""
-    if(nome_prodotto!="" && quant!="" && priority!=""){
+    if(nome_prodotto!="" && quant!="" && priority!="select a priority"){
     //ricerca dei rivenditori per il restock del prodotto richiesto
     fetch('http://localhost:3000/restock/'+nome_prodotto+'/'+quant + '/'+priority)
     .then(response => response.json())
@@ -56,6 +56,10 @@ btnRicerca.onclick = ()=>{
         
         visualizza(result)  
         });
+    }
+    else{
+        error.innerHTML = "inserisci i dati per la ricerca"
+        visualizza(null)
     }
 }
 //richiesta al server dei nomi dei prodotti
