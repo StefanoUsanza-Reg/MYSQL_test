@@ -128,7 +128,7 @@ describe('test',function(){
             })
 
         })
-        describe.only('restock', function(){
+        describe('restock', function(){
             /*
                 As a store owner
                 I want controllare i prezzi proposti dai rivenditori scontati
@@ -147,7 +147,7 @@ describe('test',function(){
                 let data = new Date("2021-09-24")
                 con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
                     if (err) throw err;
-                    assert.equal(app.restock(result,quant,data), "il rivenditore r3 è il più conveniente con un prezzo finale di: 1441.19€, spedizione minima: 4 giorni");
+                    assert.equal(app.restock(result,quant,data), "il rivenditore rivenditore3 è il più conveniente con un prezzo finale di: 1441.19€, spedizione minima: 4 giorni");
                 });
             })
 
@@ -169,7 +169,7 @@ describe('test',function(){
                 let data = new Date("2021-11-3")
                 con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
                     if (err) throw err;
-                    assert.equal(app.restock(result,quant,data), "il rivenditore r2 è il più conveniente con un prezzo finale di: 1459.2€, spedizione minima: 7 giorni");
+                    assert.equal(app.restock(result,quant,data), "il rivenditore rivenditore2 è il più conveniente con un prezzo finale di: 1459.2€, spedizione minima: 7 giorni");
                 });
             })
             /*
@@ -185,12 +185,12 @@ describe('test',function(){
             */            
             it('fastRestock should return il rivenditore r3 è il più veloce consegnando in: 4 giorni, con un prezzo finale di: 576.24€',function(){
                 //input
-                let nome_prodotto = "sedia"
+                let nome_prodotto = "sedia_ergonomica"
                 let quant = 5
                 let data = new Date("2021-09-24")
                 con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
                     if (err) throw err;
-                    assert.equal(app.fastRestock(result,quant,data), "il rivenditore r3 è il più veloce consegnando in: 4 giorni, con un prezzo finale di: 576.24€");
+                    assert.equal(app.fastRestock(result,quant,data), "il rivenditore rivenditore3 è il più veloce consegnando in: 4 giorni, con un prezzo finale di: 576.24€");
                 });
             })
             /*
@@ -206,14 +206,64 @@ describe('test',function(){
             */            
                 it('finalRestock should return il rivenditore r3 è il più conveniente con un prezzo finale di: 50€, spedizione minima: 4 giorni',function(){
                     //input
-                    let nome_prodotto = "tastiera"
+                    let nome_prodotto = "tastiera_meccanica"
                     let quant = 5
                     let data = new Date("2021-09-24")
                     con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
                         if (err) throw err;
-                        assert.equal(app.finalRestock(result,quant,data), "il rivenditore r3 è il più conveniente con un prezzo finale di: 250€, spedizione minima: 4 giorni");
+                        assert.equal(app.finalRestock(result,quant,data), "il rivenditore rivenditore3 è il più conveniente con un prezzo finale di: 250€, spedizione minima: 4 giorni");
                     });
-                })            
+                }) 
+                it('ultimateRestock should return il rivenditore rivenditore3 è il più conveniente con un prezzo finale di: 1441.19€, spedizione minima: 4 giorni',function(){
+                    let nome_prodotto = "monitor"
+                    let quant = 12
+                    let data = new Date()
+                    let priority= "Economic"
+                    con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
+                        if (err) throw err;
+                        assert.equal(app.ultimateRestock(result,quant,data,priority), "il rivenditore rivenditore3 è il più conveniente con un prezzo finale di: 1441.19€, spedizione minima: 4 giorni");
+                    });
+                })
+                it('ultimateRestock2 should return il rivenditore rivenditore2 è il più conveniente con un prezzo finale di: 1459.2€, spedizione minima: 7 giorni',function(){
+                    let nome_prodotto = "monitor"
+                    let quant = 12
+                    let data = new Date('2021-10-1')
+                    let priority= "Economic"
+                    con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
+                        if (err) throw err;
+                        assert.equal(app.ultimateRestock(result,quant,data,priority), "il rivenditore rivenditore2 è il più conveniente con un prezzo finale di: 1459.2€, spedizione minima: 7 giorni");
+                    });
+                })
+                it('ultimateRestock3 should return il rivenditore rivenditore3 è il più veloce con una spedizione minima: 4 giorni, prezzo finale di: 576.24€',function(){
+                    let nome_prodotto = "sedia_ergonomica"
+                    let quant = 5
+                    let data = new Date()
+                    let priority= "Fast"
+                    con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
+                        if (err) throw err;
+                        assert.equal(app.ultimateRestock(result,quant,data,priority), "il rivenditore rivenditore3 è il più veloce con una spedizione minima: 4 giorni, prezzo finale di: 576.24€");
+                    });
+                })
+                it('ultimateRestock4 should return il rivenditore rivenditore2 è il più conveniente con un prezzo finale di: 485€, spedizione minima: 7 giorni',function(){
+                    let nome_prodotto = "sedia_ergonomica"
+                    let quant = 5
+                    let data = new Date()
+                    let priority= "Economic"
+                    con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
+                        if (err) throw err;
+                        assert.equal(app.ultimateRestock(result,quant,data,priority), "il rivenditore rivenditore2 è il più conveniente con un prezzo finale di: 485€, spedizione minima: 7 giorni");
+                    });
+                })
+                it('ultimateRestock5 should return il rivenditore rivenditore3 è il più conveniente con un prezzo finale di: 400€, spedizione minima: 4 giorni',function(){
+                    let nome_prodotto = "tastiera_meccanica"
+                    let quant = 8
+                    let data = new Date()
+                    let priority= "Economic"
+                    con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
+                        if (err) throw err;
+                        assert.equal(app.ultimateRestock(result,quant,data,priority), "il rivenditore rivenditore3 è il più conveniente con un prezzo finale di: 400€, spedizione minima: 4 giorni");
+                    });
+                })
         })
         describe('result vuoto',function(){
             it('vuoto should return vuoto', function(){
@@ -225,14 +275,14 @@ describe('test',function(){
                     if (err) throw err;
                     assert.equal(app.vuoto(result), "vuoto");
                     //chiudi la connessione al database dopo l'ultimo test
-                    con.end()
+                    //con.end()
                 });                
             })
         })
         describe('save data',function(){
             it('visualizza should return',function(){
                 assert.equal(app.visualizza(), true);
-                con.end()
+                
             })
             it('sort',function(){
                 results = []
@@ -241,6 +291,7 @@ describe('test',function(){
                 results.push({nome: 'r1',prezzo: 100, sped:5},{nome: 'r2',prezzo: 150, sped:7},{nome: 'r3',prezzo: 100, sped:4})
                 console.log(results)
                 assert.deepEqual(app.sortMultiplo(results), exp);
+                con.end()
             })
         })
 })
