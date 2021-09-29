@@ -41,7 +41,7 @@ app.get('/restock/:nome_prodotto/:quant/:priority',(req,res)=>{
     const {quant} = req.params
     const {priority} = req.params
     let data = new Date()
-    QUERY = "SELECT prodotto.nome as nomeProdotto, rivende.prezzo, rivende.quantità, rivenditore.nome as nomeRivenditore, rivenditore.spedizione_min, "+ 
+    QUERY = "SELECT prodotto.nome as nomeProdotto,prodotto.prezzo as prezzoFix, rivende.prezzo, rivende.quantità, rivenditore.nome as nomeRivenditore, rivenditore.spedizione_min, "+ 
     "sconto.valore, sconto_extra.valore as valore_extra, sconto.importo_minimo, sconto.quantità_min, sconto_extra.data_inizio, sconto_extra.data_fine "+
     "FROM prodotto, rivende, rivenditore, sconto, sconto_extra "+
     "WHERE id_prodotto=prodotto.id "+
@@ -85,6 +85,7 @@ function restock(result,quant,data,priority){
     var prezzo
     var prezzo_scontato
     var spedizione
+    var prezzoFix = result[0].prezzoFix
 
     for (let i=0; i<result.length; i++){
         //sconto extra valido
@@ -116,7 +117,7 @@ function restock(result,quant,data,priority){
         }
         //nuovo rivenditore
         if(trovato == false){
-            results.push({nome: nome,prezzo: prezzo,prezzo_scontato: prezzo_scontato,spedizione: spedizione})
+            results.push({nome: nome,prezzo: prezzo,prezzo_scontato: prezzo_scontato,spedizione: spedizione,prezzoFix: prezzoFix})
         }
         
     }
