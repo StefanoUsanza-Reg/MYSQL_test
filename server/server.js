@@ -84,9 +84,6 @@ function restock(result,quant,data,priority){
     var spedizione
 
     for (let i=0; i<result.length; i++){
-        console.log("inizio sconto: "+result[i].data_inizio)
-        console.log("fine sconto: "+result[i].data_fine)
-        console.log(result[i].data_inizio<data)
         //sconto extra valido
         if(result[i].data_inizio<=data && result[i].data_fine>=data){
             nome = result[i].nomeRivenditore
