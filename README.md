@@ -1,4 +1,4 @@
-# MYSQL_test
+# Restock
 
 Software per la gestione del restock di un negozio.
 
