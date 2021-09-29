@@ -1,1 +1,1 @@
-GET http://localhost:3000/restock/prodotto/5
+GET http://localhost:3000/restockSort/{nome: 'r1',prezzo: 100, sped:5},{nome: 'r2',prezzo: 150, sped:7},{nome: 'r3',prezzo: 100, sped:4}

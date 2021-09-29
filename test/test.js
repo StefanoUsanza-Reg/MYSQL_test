@@ -47,7 +47,7 @@ describe('test',function(){
                 assert.equal(app.sconto(result,quant), 1489.92);
             });
         })
-        it.only('sconto extra should return 1441.19', function(){
+        it('sconto extra should return 1441.19', function(){
             //input
             let nome_prodotto = 'monitor'
             let quant = 12
@@ -227,6 +227,20 @@ describe('test',function(){
                     //chiudi la connessione al database dopo l'ultimo test
                     con.end()
                 });                
+            })
+        })
+        describe('save data',function(){
+            it('visualizza should return',function(){
+                assert.equal(app.visualizza(), true);
+                con.end()
+            })
+            it.only('sort',function(){
+                results = []
+                exp = []
+                exp.push({nome: 'r3',prezzo: 100, sped:4},{nome: 'r1',prezzo: 100, sped:5},{nome: 'r2',prezzo: 150, sped:7})
+                results.push({nome: 'r1',prezzo: 100, sped:5},{nome: 'r2',prezzo: 150, sped:7},{nome: 'r3',prezzo: 100, sped:4})
+                console.log(results)
+                assert.deepEqual(app.sortMultiplo(results), exp);
             })
         })
 })

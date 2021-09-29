@@ -1,3 +1,5 @@
+const multisort = require("multisort")
+
 module.exports = {
     sconto: function(result,quant){
         function Sconto(numero,percentuale){
@@ -237,5 +239,43 @@ module.exports = {
     vuoto: function(result){
         if(result[0]==null)
             return "vuoto"
+    },
+    visualizza: function(){
+        const result= 250
+        const nome = "r2"
+        var trovato = false
+        var a = []
+        a[0]=["r1",100]
+        a.push(["r2",200],["r3",160])
+        console.log(a)
+        //ricerca nell'array bidimensionale
+        for(let i=0; i<a.length; i++){
+            //corrispondenza trovata
+            if(a[i][0]==nome){
+                trovato = true
+                //controllo prezzo minore
+                if(result<a[i][1]){
+                    console.log("old: "+a[i][1])
+                    a[i][1]=result
+                    console.log("new: "+a[i][1]) 
+                }
+            }
+        }
+        if(trovato == false)
+            a.push([nome,result])
+        console.log(a)
+        if(a[1][1]==200)
+            return true
+        else
+            return false
+    },
+    sortMultiplo: function(results){
+        var criteria = [
+            'prezzo',
+            'sped'
+          ];
+          multisort(results,criteria)
+          console.log(results)
+        return results
     }
 }

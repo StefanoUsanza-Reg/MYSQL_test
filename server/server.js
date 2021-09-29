@@ -2,12 +2,14 @@ const express = require("express");
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app= express()
+const script = require('../script')
 
 app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+const multisort = require("multisort")
 var mysql = require('mysql');
 
 var con = mysql.createConnection({
@@ -56,4 +58,14 @@ app.get('/restock/:nome_prodotto/:quant',(req,res)=>{
         res.send(result)
     });
 
+})
+
+app.put('/restockSort',(req,res)=>{
+    const results = req.body
+      var criteria = [
+        'prezzo_scontato',
+        'spedizione'
+      ];
+      multisort(results,criteria)
+      res.send(results)
 })
