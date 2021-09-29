@@ -44,11 +44,10 @@ btnRicerca.onclick = ()=>{
     const nome_prodotto = document.getElementById('input').value
     const quant = document.getElementById('quant').value
     const priority = document.getElementById('priority').value
-    const data = new Date().toJSON().slice(0, 10)
     error.innerHTML = ""
     if(nome_prodotto!="" && quant!="" && priority!=""){
     //ricerca dei rivenditori per il restock del prodotto richiesto
-    fetch('http://localhost:3000/restock/'+nome_prodotto+'/'+quant + '/'+data + '/'+priority)
+    fetch('http://localhost:3000/restock/'+nome_prodotto+'/'+quant + '/'+priority)
     .then(response => response.json())
     .then(result => {
         //trovati dei rivenditori che possono soddisfare la richiesta

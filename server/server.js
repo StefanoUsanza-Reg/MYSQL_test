@@ -39,11 +39,11 @@ app.get('/restock/nomi_prodotti',(req,res)=>{
 
 })
 
-app.get('/restock/:nome_prodotto/:quant/:data/:priority',(req,res)=>{
+app.get('/restock/:nome_prodotto/:quant/:priority',(req,res)=>{
     const {nome_prodotto} = req.params
     const {quant} = req.params
-    const {data} = req.params
     const {priority} = req.params
+    let data = new Date()
         QUERY = "SELECT prodotto.nome as nomeProdotto, rivende.prezzo, rivende.quantità, rivenditore.nome as nomeRivenditore, rivenditore.spedizione_min, "+ 
         "sconto.valore, sconto_extra.valore as valore_extra, sconto.importo_minimo, sconto.quantità_min, sconto_extra.data_inizio, sconto_extra.data_fine "+
         "FROM prodotto, rivende, rivenditore, sconto, sconto_extra "+
@@ -84,6 +84,9 @@ function restock(result,quant,data,priority){
     var spedizione
 
     for (let i=0; i<result.length; i++){
+        console.log("inizio sconto: "+result[i].data_inizio)
+        console.log("fine sconto: "+result[i].data_fine)
+        console.log(result[i].data_inizio<data)
         //sconto extra valido
         if(result[i].data_inizio<=data && result[i].data_fine>=data){
             nome = result[i].nomeRivenditore

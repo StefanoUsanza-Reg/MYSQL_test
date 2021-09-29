@@ -84,6 +84,7 @@ module.exports = {
         var tempSpedizione
         for(let i=1; i<result.length;i++){
             //sconto extra valido
+            console.log(data)
             if(result[i].data_inizio<=data && result[i].data_fine>=data){
                 tempScontato = sconto(sconto(result[i].prezzo*quant,result[i].valore),result[i].valore_extra)
                 tempScontato = Math.round((tempScontato + Number.EPSILON) * 100) / 100;

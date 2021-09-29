@@ -128,7 +128,7 @@ describe('test',function(){
             })
 
         })
-        describe('restock', function(){
+        describe.only('restock', function(){
             /*
                 As a store owner
                 I want controllare i prezzi proposti dai rivenditori scontati
@@ -234,7 +234,7 @@ describe('test',function(){
                 assert.equal(app.visualizza(), true);
                 con.end()
             })
-            it.only('sort',function(){
+            it('sort',function(){
                 results = []
                 exp = []
                 exp.push({nome: 'r3',prezzo: 100, sped:4},{nome: 'r1',prezzo: 100, sped:5},{nome: 'r2',prezzo: 150, sped:7})
