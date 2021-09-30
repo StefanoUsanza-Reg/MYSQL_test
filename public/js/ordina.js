@@ -1,3 +1,14 @@
+const user = document.getElementById('username')
+const btnLogout = document.getElementById('logout')
+btnLogout.onclick = ()=>{
+    sessionStorage.clear()
+  }
+// controllo autenticazione
+if(sessionStorage.getItem("user")==null){
+    window.location.replace("http://localhost:5500/public/login.html");
+  }
+  user.innerHTML = "user: "+ sessionStorage.getItem("user")
+
 //recupero stringa di valori
 var queryString = window.location.search;
 //ricerchiamo i parametri nella stringa

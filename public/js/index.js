@@ -3,6 +3,16 @@ const tabella = document.getElementById("tabella")
 const tabella1= document.createElement("tbody")
 const error = document.getElementById('error')
 let visualizzaData =""
+const user = document.getElementById('username')
+const btnLogout = document.getElementById('logout')
+btnLogout.onclick = ()=>{
+    sessionStorage.clear()
+  }
+// controllo autenticazione
+if(sessionStorage.getItem("user")==null){
+    window.location.replace("http://localhost:5500/public/login.html");
+  }
+  user.innerHTML = "user: "+ sessionStorage.getItem("user") 
 
 //inserimento dei dati estratti dal database nei campi di selezione
 function search(result){
