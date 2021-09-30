@@ -2,7 +2,7 @@
 
 Software per la gestione del restock di un negozio.
 
-[Guida all'utilizzo]()
+[Guida all'utilizzo](/StefanoUsanza-Reg/restock/blob/master/README.md#guida-allutilizzo)
 
 ## Analisi problema
 
