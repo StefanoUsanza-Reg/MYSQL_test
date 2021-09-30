@@ -12,7 +12,7 @@ btnLogout.onclick = ()=>{
 if(sessionStorage.getItem("user")==null){
     window.location.replace("http://localhost:5500/public/login.html");
   }
-  user.innerHTML = "user: "+ sessionStorage.getItem("user") 
+  user.innerHTML = "User: "+ sessionStorage.getItem("user") 
 
 //inserimento dei dati estratti dal database nei campi di selezione
 function search(result){
@@ -55,7 +55,7 @@ btnRicerca.onclick = ()=>{
     const quant = document.getElementById('quant').value
     const priority = document.getElementById('priority').value
     error.innerHTML = ""
-    if(nome_prodotto!="" && quant!="" && priority!="select a priority"){
+    if(nome_prodotto!="" && quant!="" && quant>0 && priority!="select a priority"){
     //ricerca dei rivenditori per il restock del prodotto richiesto
     fetch('http://localhost:3000/restock/'+nome_prodotto+'/'+quant + '/'+priority)
     .then(response => response.json())
@@ -66,6 +66,10 @@ btnRicerca.onclick = ()=>{
         
         visualizza(result,quant)  
         });
+    }
+    else if(quant=="" || quant<=0){
+        error.innerHTML = "inserisci una quantità valida"
+        visualizza(null,quant)
     }
     else{
         error.innerHTML = "inserisci i dati per la ricerca"
