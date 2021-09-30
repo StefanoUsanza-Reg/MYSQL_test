@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const bcrypt = require('bcrypt');
 const app= express()
 
 app.use(cors());
@@ -66,6 +67,56 @@ app.get('/restock/:nome_prodotto/:quant/:priority',(req,res)=>{
                 res.send(restock(result,quant,data,priority))
         });
     })
+})
+
+app.get('/users',(req,res)=>{
+    const password = "pass3"
+    var con = mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "",
+        database: "users"
+    });
+    bcrypt.hash(password, 10, function(err, hash) {
+        // Store hash in your password DB.
+        QUERY = "INSERT INTO user (username,password) VALUES ('BS003','"+hash+"')"
+        con.query(QUERY, function(err,result){
+            if (err) throw err;
+            con.end()  
+        })
+    });
+})
+
+// implementazione autenticazione
+app.get("/users/:name/:password",(req,res)=>{
+    const {name}= req.params
+    const {password}= req.params
+    var con = mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "",
+        database: "users"
+      });
+    con.connect(function(err) {
+        if (err) throw err;
+        QUERY= "SELECT user.username, user.password FROM user WHERE user.username = '"+ name+"'"
+        con.query(QUERY, function (err, result, fields) {
+            if (err) throw err;
+            con.end()
+            //res.send(result)
+            const user = result
+            if(user!=""){
+                bcrypt.compare(password, user[0].password).then(function(result) {
+                    if(result)
+                        res.send(true)
+                    else
+                        res.send(false)
+                });    
+            }
+            else
+                res.send(false)
+        })
+    });
 })
 
 function sconto(numero,percentuale){
