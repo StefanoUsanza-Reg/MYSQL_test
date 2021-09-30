@@ -17,17 +17,26 @@
       <div class="card-body">
         <h3 class="card-title">Ordine confermato tramite</h3>
         <h3 class="card-title" id="titolo"></h1>
-          <ul class="list-group list-group-horizontal d-flex justify-content-center">
-            <li class="list-group-item text-center">Prezzo vendita</li>
-            <li class="list-group-item text-center">Prezzo acquisto</li>
-            <li class="list-group-item text-center">guadagno</li>
-          </ul>
-          <ul class="list-group list-group-horizontal d-flex justify-content-center">
-            <li class="list-group-item text-center" id="prezzoFix"></li>
-            <li class="list-group-item text-center" id="prezzo_scontato"></li>
-            <li class="list-group-item text-center" id="guadagno"></li>
-          </ul>
-      </div>
+      
+      <table class="table table-bordered" style="text-align: center;background-color: white;" id="tabella">
+        <thead>
+          <tr>
+            <th scope="col">Prezzo vendita</th>
+            <th scope="col">Prezzo acquisto</th>
+            <th scope="col">guadagno</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td id="prezzoFix"></td>
+            <td id="prezzo_scontato"></td>
+            <td id="guadagno"></td>
+          </tr>
+        </tbody>
+       
+      </table>
+</div>
+
       <a href="index.html" class="btn btn-primary">home page</a>
     </div>  
     <script src="js/ordina.js"></script>

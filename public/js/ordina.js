@@ -6,6 +6,7 @@ var nome = urlParams.get('nome')
 var fix = urlParams.get('prezzoFix')
 var scontato = urlParams.get('prezzo_scontato')
 var quant = urlParams.get('quant')
+var guad = (fix*quant)-scontato 
 
 const titolo= document.getElementById('titolo')
 const prezzoFix = document.getElementById('prezzoFix')
@@ -15,4 +16,4 @@ const guadagno = document.getElementById('guadagno')
 titolo.innerHTML = nome
 prezzoFix.innerHTML = fix + "€"
 prezzo_scontato.innerHTML = scontato + "€"
-guadagno.innerHTML = (fix*quant)-scontato + "€"
+guadagno.innerHTML = (Math.round((guad + Number.EPSILON) * 100) / 100) + "€"
