@@ -2,6 +2,8 @@
 
 Software per la gestione del restock di un negozio.
 
+[Guida all'utilizzo]()
+
 ## Analisi problema
 
 Il tuo negozio vende i prodotti a dei prezzi fissi, ma quando vuoi rifornirti dai rivenditori, vuoi scegliere quello più conveniente in base ai prezzi di vendita e gli sconti che offrono: 
