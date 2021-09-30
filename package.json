@@ -8,7 +8,7 @@
     "dev": "nodemon server/server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Stefano_Usanza",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",

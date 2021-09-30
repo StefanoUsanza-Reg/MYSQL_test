@@ -39,7 +39,7 @@ let QUERY = "SELECT prodotto.nome as nomeProdotto, rivende.prezzo, rivende.quant
 describe('test',function(){
         it('sconto should return 1459.20', function(){
             //input
-            let nome_prodotto = 'monitor'
+            let nome_prodotto = 'Philips monitor 17”'
             let quant = 12
 
             con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
@@ -49,7 +49,7 @@ describe('test',function(){
         })
         it('sconto extra should return 1441.19', function(){
             //input
-            let nome_prodotto = 'monitor'
+            let nome_prodotto = 'Philips monitor 17”'
             let quant = 12
 
             con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
@@ -59,7 +59,7 @@ describe('test',function(){
         })
         it('migliore should return 1459.20', function(){
             //input
-            let nome_prodotto = "monitor"
+            let nome_prodotto = "Philips monitor 17”"
             let quant = 12
 
             con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
@@ -80,7 +80,7 @@ describe('test',function(){
             */
             it('importo_minimo should return valido', function(){
             //input
-            let nome_prodotto = "monitor"
+            let nome_prodotto = "Philips monitor 17”"
             let quant = 12
 
             con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
@@ -99,7 +99,7 @@ describe('test',function(){
             */
             it('quant should return valido',function(){
                 //input
-                let nome_prodotto = "monitor"
+                let nome_prodotto = "Philips monitor 17”"
                 let quant = 6
                 con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
                     if (err) throw err;
@@ -118,7 +118,7 @@ describe('test',function(){
             */
             it('data should return true', function(){
                 //input
-                let nome_prodotto = "monitor"
+                let nome_prodotto = "Philips monitor 17”"
                 let quant = 6
                 let data = new Date('2021-09-23')
                 con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
@@ -142,7 +142,7 @@ describe('test',function(){
             */
             it('restock should return il rivenditore r3 è il più conveniente con un prezzo finale di: 1441.19€',function(){
                 //input
-                let nome_prodotto = "monitor"
+                let nome_prodotto = "Philips monitor 17”"
                 let quant = 12
                 let data = new Date("2021-09-24")
                 con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
@@ -164,7 +164,7 @@ describe('test',function(){
             */ 
             it('restock2 should return il rivenditore r2 è il più conveniente con un prezzo finale di: 1459.2€',function(){
                 //input
-                let nome_prodotto = "monitor"
+                let nome_prodotto = "Philips monitor 17”"
                 let quant = 12
                 let data = new Date("2021-11-3")
                 con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
@@ -185,7 +185,7 @@ describe('test',function(){
             */            
             it('fastRestock should return il rivenditore r3 è il più veloce consegnando in: 4 giorni, con un prezzo finale di: 576.24€',function(){
                 //input
-                let nome_prodotto = "sedia_ergonomica"
+                let nome_prodotto = "sedia da ufficio"
                 let quant = 5
                 let data = new Date("2021-09-24")
                 con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
@@ -206,7 +206,7 @@ describe('test',function(){
             */            
                 it('finalRestock should return il rivenditore r3 è il più conveniente con un prezzo finale di: 50€, spedizione minima: 4 giorni',function(){
                     //input
-                    let nome_prodotto = "tastiera_meccanica"
+                    let nome_prodotto = "tastiera meccanica"
                     let quant = 5
                     let data = new Date("2021-09-24")
                     con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
@@ -215,7 +215,7 @@ describe('test',function(){
                     });
                 }) 
                 it('ultimateRestock should return il rivenditore rivenditore3 è il più conveniente con un prezzo finale di: 1441.19€, spedizione minima: 4 giorni',function(){
-                    let nome_prodotto = "monitor"
+                    let nome_prodotto = "Philips monitor 17”"
                     let quant = 12
                     let data = new Date()
                     let priority= "Economic"
@@ -225,7 +225,7 @@ describe('test',function(){
                     });
                 })
                 it('ultimateRestock2 should return il rivenditore rivenditore2 è il più conveniente con un prezzo finale di: 1459.2€, spedizione minima: 7 giorni',function(){
-                    let nome_prodotto = "monitor"
+                    let nome_prodotto = "Philips monitor 17”"
                     let quant = 12
                     let data = new Date('2021-10-20')
                     let priority= "Economic"
@@ -235,7 +235,7 @@ describe('test',function(){
                     });
                 })
                 it('ultimateRestock3 should return il rivenditore rivenditore3 è il più veloce con una spedizione minima: 4 giorni, prezzo finale di: 576.24€',function(){
-                    let nome_prodotto = "sedia_ergonomica"
+                    let nome_prodotto = "sedia da ufficio"
                     let quant = 5
                     let data = new Date()
                     let priority= "Fast"
@@ -245,7 +245,7 @@ describe('test',function(){
                     });
                 })
                 it('ultimateRestock4 should return il rivenditore rivenditore2 è il più conveniente con un prezzo finale di: 485€, spedizione minima: 7 giorni',function(){
-                    let nome_prodotto = "sedia_ergonomica"
+                    let nome_prodotto = "sedia da ufficio"
                     let quant = 5
                     let data = new Date()
                     let priority= "Economic"
@@ -255,7 +255,7 @@ describe('test',function(){
                     });
                 })
                 it('ultimateRestock5 should return il rivenditore rivenditore3 è il più conveniente con un prezzo finale di: 400€, spedizione minima: 4 giorni',function(){
-                    let nome_prodotto = "tastiera_meccanica"
+                    let nome_prodotto = "tastiera meccanica"
                     let quant = 8
                     let data = new Date()
                     let priority= "Economic"
@@ -268,7 +268,7 @@ describe('test',function(){
         describe('result vuoto',function(){
             it('vuoto should return vuoto', function(){
                 //input
-                let nome_prodotto = "tastiera"
+                let nome_prodotto = "tastiera meccanica"
                 let quant = 50
                 let data = new Date("2021-09-24")
                 con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
