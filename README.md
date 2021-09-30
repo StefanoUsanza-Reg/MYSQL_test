@@ -10,6 +10,37 @@ Il tuo negozio vende i prodotti a dei prezzi fissi, ma quando vuoi rifornirti da
 - o potrebbero essere limitati ad alcuni periodi dell'anno
 Inoltre puoi scegliere i rivenditori in base ai giorni di spedizione dell'ordine, in caso fosse necessario una consegna urgente.
 
+## Analisi funzionalità
+<b>AS</b> store owner
+
+<b>I WANT</b> controllare i prezzi di un prodotto offerti da rivenditori diversi
+
+<b>SO THAT</b> quando devo fare restock di un prodotto, posso scegliere se comprare dal rivenditore più conveniente, o dal più veloce a consegnare l'ordine
+
+(scenario 1:)
+
+<b>GIVEN</b> Una richiesta di acquisto di 12X monitor fatta il 24 settembre
+
+<b>WHEN</b> Supplier 1 has 8pcs in stock at 120€ each, and offers 5% discount for purchases of minimum 1000€. Min. days to ship order is 5
+
+<b>AND</b> Supplier 2 has 15pcs in stock at 128€ each, and offers a 3% discount if you order >5pcs and 5% discount if you order >10pcs. Min. days to ship order is 7
+  
+<b>AND</b> Supplier 3 has 23pcs in stock at 129€ each, and offers a discount of 5% for orders over 1000€. It also offers an additional discount of 2% for orders placed in september.. Min. days to ship order is 4
+
+<b>THEN</b> 
+- Supplier 1 is not prompted because it does not have enough stock quantity available.
+- Supplier 2 can fulfill the request for 1’459.20€.
+- Supplier 3 can fulfill the request for 1’441.19€; this is the cheapest one so it should be highlighted
+
+
+(scenario 2:)
+
+<b>GIVEN</b> 
+
+<b>WHEN</b>
+
+<b>THEN</b>
+
 ## Guida all'utilizzo
 
 Per accedere al servizio è necessario effettuare un login; gli account devono essere distribuiti agli operatori abilitati, che non possono scegliere di crearne di nuovi. I dati relativi agli account sono salvati in un database, e per proteggere le password le criptiamo prima di salvarle, in questo modo non è possibile risalire alla password in chiaro anche se venissero rubate le informazioni dal database. Per cambiare account o disconnettersi da quello attualmente in uso, è presente un tasto di logout, che elimina la sessione corrente e reindirizza alla pagina di login.
