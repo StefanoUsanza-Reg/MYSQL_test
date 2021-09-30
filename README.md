@@ -8,11 +8,11 @@ Il tuo negozio vende i prodotti a dei prezzi fissi, ma quando vuoi rifornirti da
 - gli sconti possono essere correlati alla quantità di prodotti richiesti
 - all'importo totale dell'ordine
 - o potrebbero essere limitati ad alcuni periodi dell'anno
-Inoltre puoi scegliere i rivenditori in base ai giorni di spedizione dell'ordine, in caso fosse necessario una consegna urgente
+Inoltre puoi scegliere i rivenditori in base ai giorni di spedizione dell'ordine, in caso fosse necessario una consegna urgente.
 
 ## Guida all'utilizzo
 
-Per accedere al servizio è necessario effettuare un login; gli account devono essere distribuiti agli operatori abilitati, che non possono scegliere di crearne di nuovi. I dati relativi agli account sono salvati in un database, e per proteggere le password le criptiamo prima di salvarle, in questo modo non è possibile risalire alla password in chiaro anche se venissero rubate le informazioni dal database. Per cambiare account o disconnettersi da quello attualmente in uso, è presente un tasto di logout, che elimina la sessione corrente e reindirizza alla pagina di login
+Per accedere al servizio è necessario effettuare un login; gli account devono essere distribuiti agli operatori abilitati, che non possono scegliere di crearne di nuovi. I dati relativi agli account sono salvati in un database, e per proteggere le password le criptiamo prima di salvarle, in questo modo non è possibile risalire alla password in chiaro anche se venissero rubate le informazioni dal database. Per cambiare account o disconnettersi da quello attualmente in uso, è presente un tasto di logout, che elimina la sessione corrente e reindirizza alla pagina di login.
 
 Quando si vuole effettuare un ordine di restock, è sufficente inserire il nome del prodotto e la quantità desiserata nel form, specificando la priorità per la ricerca: 
 - economica, se si vuole individuare il rivenditore che offre il prezzo più basso
