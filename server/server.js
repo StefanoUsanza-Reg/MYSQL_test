@@ -69,24 +69,6 @@ app.get('/restock/:nome_prodotto/:quant/:priority',(req,res)=>{
     })
 })
 
-app.get('/users',(req,res)=>{
-    const password = "pass3"
-    var con = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "",
-        database: "users"
-    });
-    bcrypt.hash(password, 10, function(err, hash) {
-        // Store hash in your password DB.
-        QUERY = "INSERT INTO user (username,password) VALUES ('BS003','"+hash+"')"
-        con.query(QUERY, function(err,result){
-            if (err) throw err;
-            con.end()  
-        })
-    });
-})
-
 // implementazione autenticazione
 app.get("/users/:name/:password",(req,res)=>{
     const {name}= req.params
