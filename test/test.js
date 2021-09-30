@@ -227,7 +227,7 @@ describe('test',function(){
                 it('ultimateRestock2 should return il rivenditore rivenditore2 è il più conveniente con un prezzo finale di: 1459.2€, spedizione minima: 7 giorni',function(){
                     let nome_prodotto = "monitor"
                     let quant = 12
-                    let data = new Date('2021-10-1')
+                    let data = new Date('2021-10-20')
                     let priority= "Economic"
                     con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
                         if (err) throw err;
