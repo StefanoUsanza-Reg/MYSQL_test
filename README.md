@@ -97,6 +97,10 @@ Una volta effettuato il login, la sessione dell'utente verrà salvata permettend
 
 - Ricerca rivenditori(Economic,Fast)
 
+Inserendo i dati relativi al nome di un prodotto e la quantità desiderata, l'utente può visualizzare una lista di tutti i rivenditori che possono soddisfare la richiesta; l'ordine con cui vengono visualizzati è basato sulla priorità impostata dall'utente: Economica o Veloce. Per mostrare all'utente la lista dei rivenditori, il server deve ricevere una richiesta contenente tutti i dati necessari, quindi se l'utente non compila interamente il form, la richiesta non parte e viene visualizzato un messaggio di errore; allo stesso modo se non vengono trovati dei rivenditori che soddisfano la richiesta, verrà mostrato un messaggio di errore. 
+
+Per velocizzare l'inserimento dei dati, e limitare gli errori dovuti ad una scrittura manuale, i nomi dei prodotti vengono inseriti nel form, e l'utente deve solo selezionare quello desiderato; per farlo è sufficente effettuare una richiesta al server quando viene caricata la pagina per la ricerca.
+
 - Ordina/guadagno
 
 ## Guida all'utilizzo
