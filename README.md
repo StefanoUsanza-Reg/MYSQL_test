@@ -103,7 +103,7 @@ Per velocizzare l'inserimento dei dati, e limitare gli errori dovuti ad una scri
 
 - <b>Ordina/guadagno</b>
 
-Quando l'utente ha scelto il rivenditore, effettua l'ordine: viene mostrato un riassunto con le informazioni relative al nome del rivenditore e il prezzo di acquisto; inoltre viene mostrato il prezzo di vendità del singolo prodotto, e viene calcolato il guadagno in base alla vendità di tutte le unità comprate.
+L'utente può sempre scegliere il rivenditore che preferisce, anche se non è quello evidenziato dal sistema; per questo a fianco di ogni rivenditore è presente un tasto che permette di concludere l'ordine con quel rivenditore specifico. Una volta comfermato l'ordine viene mostrato il prezzo a cui verranno venduti gli oggetti, il prezzo d'acquisto, e il possibile guadagno vendendo l'intero ordine. A questo punto l'utente può tornare al form per inserire nuovi dati ed effettuare una nuova ricerca opppure effetuare il logout e tornare alla schermata di login.
 
 ## Guida all'utilizzo
 
@@ -122,6 +122,3 @@ In base alla priorità di ricerca selezionata verrà evidenziato il rivenditore 
 - veloce, viene evidenziato il rivenditore che offre la spedizione più veloce, e in caso di tempistiche uguali, verrà scelto il più economico
 
 ![Screenshot (13)](https://user-images.githubusercontent.com/90613113/135273609-214f1b4b-55bc-4013-b4e9-3b8a73eefcfa.png)
-
-L'utilizzatore del servizio può sempre scegliere il rivenditore che preferisce, anche se non è quello evidenziato dal sistema; per questo a fianco di ogni rivenditore è presente un tasto che permette di concludere l'ordine con quel rivenditore specifico.
-Una volta comfermato l'ordine viene mostrato il prezzo a cui verranno venduti gli oggetti, il prezzo d'acquisto, e il possibile guadagno vendendo l'intero ordine.
