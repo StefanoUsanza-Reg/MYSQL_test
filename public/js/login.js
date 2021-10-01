@@ -17,7 +17,6 @@ btnLogin.onclick = ()=>{
             //password errata    
             else{
                 error.innerHTML = "login errato"
-                name.value = ""
                 password.value = ""
             }
         })    
@@ -25,8 +24,6 @@ btnLogin.onclick = ()=>{
     //nome utente o password non inseriti
     else{
         error.innerHTML = "login errato"
-        name.value = ""
-        password.value = ""
     }
     
 }
