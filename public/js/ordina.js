@@ -9,6 +9,11 @@ if(sessionStorage.getItem("user")==null){
   }
   user.innerHTML = "user: "+ sessionStorage.getItem("user")
 
+const btnHome = document.getElementById('home')
+btnHome.onclick = ()=>{
+  window.location.replace("http://localhost:5500/public/index.html");
+}
+
 //recupero stringa di valori
 var queryString = window.location.search;
 //ricerchiamo i parametri nella stringa

@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const app= express()
+const script = require('../script')
 
 app.use(cors());
 
@@ -19,6 +20,7 @@ app.listen(3000, ()=>{
     console.log("server listening on port 3000:")
 })
 
+//recupero nomi prodotti dal server
 app.get('/restock/nomi_prodotti',(req,res)=>{
     var con = mysql.createConnection({
         host: "localhost",
@@ -37,6 +39,7 @@ app.get('/restock/nomi_prodotti',(req,res)=>{
     })
 })
 
+//restock
 app.get('/restock/:nome_prodotto/:quant/:priority',(req,res)=>{
     const {nome_prodotto} = req.params
     const {quant} = req.params
@@ -64,7 +67,7 @@ app.get('/restock/:nome_prodotto/:quant/:priority',(req,res)=>{
             if(result[0]==null)
                 res.send(result)
             else
-                res.send(restock(result,quant,data,priority))
+                res.send(script.Restock(result,quant,data,priority))
         });
     })
 })
@@ -100,7 +103,7 @@ app.get("/users/:name/:password",(req,res)=>{
         })
     });
 })
-
+/* 
 function sconto(numero,percentuale){
     return numero - (numero * percentuale)/100
 }
@@ -170,4 +173,4 @@ function restock(result,quant,data,priority){
 
       multisort(results,criteria)
       return results
-}
+} */

@@ -14,6 +14,11 @@ if(sessionStorage.getItem("user")==null){
   }
   user.innerHTML = "User: "+ sessionStorage.getItem("user") 
 
+const btnHome = document.getElementById('home')
+btnHome.onclick = ()=>{
+window.location.replace("http://localhost:5500/public/index.html");
+}  
+
 //inserimento dei dati estratti dal database nei campi di selezione
 function search(result){
     const prodotti= document.getElementById("prodotti")

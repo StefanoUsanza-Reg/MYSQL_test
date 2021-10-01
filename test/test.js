@@ -217,7 +217,7 @@ describe('test', function () {
             //input
             let nome_prodotto = "Philips monitor 17”"
             let quant = 12
-            let data = new Date()
+            let data = new Date('2021-09-24')
             let priority = "Economic"
             con.query(QUERY + nome_prodotto + "' and rivende.quantità>=" + quant, function (err, result, fields) {
                 if (err) throw err;
@@ -239,7 +239,7 @@ describe('test', function () {
             //input
             let nome_prodotto = "sedia da ufficio"
             let quant = 5
-            let data = new Date()
+            let data = new Date('2021-09-24')
             let priority = "Fast"
             con.query(QUERY + nome_prodotto + "' and rivende.quantità>=" + quant, function (err, result, fields) {
                 if (err) throw err;
@@ -282,17 +282,17 @@ describe('test', function () {
         })
     })
     describe('save data', function () {
-        it('visualizza should return', function () {
+        it('visualizza should return true', function () {
             assert.equal(app.visualizza(), true);
 
         })
-        it('sort', function () {
+        it('sort should sort', function () {
             //input
             results = []
             exp = []
             exp.push({ nome: 'r3', prezzo: 100, sped: 4 }, { nome: 'r1', prezzo: 100, sped: 5 }, { nome: 'r2', prezzo: 150, sped: 7 })
             results.push({ nome: 'r1', prezzo: 100, sped: 5 }, { nome: 'r2', prezzo: 150, sped: 7 }, { nome: 'r3', prezzo: 100, sped: 4 })
-            console.log(results)
+            //console.log(results)
             assert.deepEqual(app.sortMultiplo(results), exp);
             //chiudi la connessione al database dopo l'ultimo test
             con.end()
