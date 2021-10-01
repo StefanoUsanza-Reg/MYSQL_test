@@ -37,7 +37,7 @@ Inoltre puoi scegliere i rivenditori in base ai giorni di spedizione dell'ordine
 <b>THEN</b> 
 - Supplier 1 is not prompted because it does not have enough stock quantity available.
 - Supplier 2 can fulfill the request for 1459.20€.
-- Supplier 3 can fulfill the request for 1441.19€; this is the cheapest one so it should be highlighted
+- Supplier 3 can fulfill the request for 1441.19€; this is the cheapest one so it should be highlighted.
 
 
 <i>(SCENARIO 2:)</i>
@@ -52,7 +52,7 @@ Inoltre puoi scegliere i rivenditori in base ai giorni di spedizione dell'ordine
 
 <b>THEN</b> 
 - Supplier 1 is not prompted because it does not have enough stock quantity available.
-- Supplier 2 can fulfill the request for 1459.20€; this is the cheapest one so it should be highlighted
+- Supplier 2 can fulfill the request for 1459.20€; this is the cheapest one so it should be highlighted.
 - Supplier 3 can fulfill the request for 1470.60€.
 
 <i>(SCENARIO 3:)</i>
@@ -68,19 +68,22 @@ Inoltre puoi scegliere i rivenditori in base ai giorni di spedizione dell'ordine
 <b>THEN</b>
 - Supplier 1 can fulfill the request shipping the order in 5 days for 550€
 - Supplier 2 can fulfill the request shipping the order in 7 days for 485€.
-- Supplier 3 can fulfill the request shipping the order in 4 days for 576€. this is the fastest one so it should be highlighted
+- Supplier 3 can fulfill the request shipping the order in 4 days for 576€. this is the fastest one so it should be highlighted.
 
 <i>(SCENARIO 4:)</i>
 
-<b>GIVEN</b> 
+<b>GIVEN</b>  una richiesta di acquisto di 8X tastiere meccaniche fatta il 24 settembre, priority Economic
 
-<b>WHEN</b>
+<b>WHEN</b> Supplier 1 has 20pcs in stock at 50€ each. Min. days to ship order is 5
 
-<b>AND</b>
+<b>AND</b> Supplier 2 has 30pcs in stock at 55€ each. Min. days to ship order is 7
 
-<b>AND</b>
+<b>AND</b> Supplier 3 has 25pcs in stock at 50€ each. Min. days to ship order is 4
 
 <b>THEN</b>
+- Supplier 1 can fulfill the request for 400€, Min. days to ship order is 5
+- Supplier 2 can fulfill the request for 440€, Min. days to ship order is 7
+- Supplier 3 can fulfill the request for 400€, Min. days to ship order is 4. This is the cheapest one and the fastest one so it should be highlighted.
 
 ## Guida all'utilizzo
 
