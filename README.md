@@ -1,6 +1,6 @@
 # Restock
 
-Software per la gestione del restock di un negozio. test
+Software per la gestione del restock di un negozio.
 
 - [Analisi problema](/README.md#analisi-problema)
 
