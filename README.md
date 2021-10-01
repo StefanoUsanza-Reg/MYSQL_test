@@ -85,6 +85,18 @@ Inoltre puoi scegliere i rivenditori in base ai giorni di spedizione dell'ordine
 - Supplier 2 can fulfill the request for 440€, Min. days to ship order is 7
 - Supplier 3 can fulfill the request for 400€, Min. days to ship order is 4. This is the cheapest one and the fastest one so it should be highlighted.
 
+### Funzioni
+
+- <b>Login/logout:</b>
+
+Per accedere alle funzionalità del sito, è necessario autenticarsi. Tramite una schermata di log-in è possibile far accedere al servizio solamente gli operatori a cui è stato assegnato un account valido. Senza eseguire l'accesso non è possibile accedere a nessuna delle funzionalità. Il nome utente e la password vengono salvati in un database; per evitare di esporre le password a chi utilizza il database, o a persone che provano ad attaccare il nostro sistema, è necessario codificare le password prima di salvare nel database. Tramite una funzione di hashing è possibile generare un hash per la password, a questo punto l'unico modo per verificare se la password inserita durante la fase di login è corretta, è quello di usare una funzione compare(), perché una volta codificata non è possibile risalire alla password in chiaro, ma solamente verificare se l'hash analizzata è stata generata da quella password.
+
+Una volta effettuato il login, la sessione dell'utente verrà salvata permettendogli di accedere a tutte le funzioni del sito; se si vuole cambiare account, o semplicemente terminare la sessione corrente, è presente un tasto per il logout: l'utente verra reindirizzato alla pagina di login e dovrà inserire nuovamente i dati corretti per autenticarsi.
+
+- Ricerca rivenditori(Economic,Fast)
+
+- Ordina/guadagno
+
 ## Guida all'utilizzo
 
 Per accedere al servizio è necessario effettuare un login; gli account devono essere distribuiti agli operatori abilitati, che non possono scegliere di crearne di nuovi. I dati relativi agli account sono salvati in un database, e per proteggere le password le criptiamo prima di salvarle, in questo modo non è possibile risalire alla password in chiaro anche se venissero rubate le informazioni dal database. Per cambiare account o disconnettersi da quello attualmente in uso, è presente un tasto di logout, che elimina la sessione corrente e reindirizza alla pagina di login.
