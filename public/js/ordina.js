@@ -9,6 +9,10 @@ if(sessionStorage.getItem("user")==null){
   }
   user.innerHTML = "user: "+ sessionStorage.getItem("user")
 
+const btnNavHome = document.getElementById('navHome')
+btnNavHome.onclick = ()=>{
+  window.location.replace("http://localhost:5500/public/index.html");
+}
 const btnHome = document.getElementById('home')
 btnHome.onclick = ()=>{
   window.location.replace("http://localhost:5500/public/index.html");
