@@ -95,13 +95,13 @@ Per accedere alle funzionalità del sito, è necessario autenticarsi. Tramite un
 
 Una volta effettuato il login, la sessione dell'utente verrà salvata permettendogli di accedere a tutte le funzioni del sito; se si vuole cambiare account, o semplicemente terminare la sessione corrente, è presente un tasto per il logout: l'utente verra reindirizzato alla pagina di login e dovrà inserire nuovamente i dati corretti per autenticarsi.
 
-- Ricerca rivenditori(Economic,Fast)
+- <b>Ricerca rivenditori</b>
 
 Inserendo i dati relativi al nome di un prodotto e la quantità desiderata, l'utente può visualizzare una lista di tutti i rivenditori che possono soddisfare la richiesta; l'ordine con cui vengono visualizzati è basato sulla priorità impostata dall'utente: Economica o Veloce. Per mostrare all'utente la lista dei rivenditori, il server deve ricevere una richiesta contenente tutti i dati necessari, quindi se l'utente non compila interamente il form, la richiesta non parte e viene visualizzato un messaggio di errore; allo stesso modo se non vengono trovati dei rivenditori che soddisfano la richiesta, verrà mostrato un messaggio di errore. 
 
 Per velocizzare l'inserimento dei dati, e limitare gli errori dovuti ad una scrittura manuale, i nomi dei prodotti vengono inseriti nel form, e l'utente deve solo selezionare quello desiderato; per farlo è sufficente effettuare una richiesta al server quando viene caricata la pagina per la ricerca.
 
-- Ordina/guadagno
+- <b>Ordina/guadagno</b>
 
 ## Guida all'utilizzo
 
