@@ -6,6 +6,8 @@ Software per la gestione del restock di un negozio.
 
 - [Analisi funzionalità](/README.md#analisi-funzionalità)
 
+- [Funzioni](/README.md#funzioni)
+
 - [Guida all'utilizzo](/README.md#guida-allutilizzo)
 
 
@@ -37,7 +39,7 @@ Inoltre puoi scegliere i rivenditori in base ai giorni di spedizione dell'ordine
 <b>THEN</b> 
 - Supplier 1 is not prompted because it does not have enough stock quantity available.
 - Supplier 2 can fulfill the request for 1459.20€.
-- Supplier 3 can fulfill the request for 1441.19€; this is the cheapest one so it should be highlighted
+- Supplier 3 can fulfill the request for 1441.19€; this is the cheapest one so it should be highlighted.
 
 
 <i>(SCENARIO 2:)</i>
@@ -52,7 +54,7 @@ Inoltre puoi scegliere i rivenditori in base ai giorni di spedizione dell'ordine
 
 <b>THEN</b> 
 - Supplier 1 is not prompted because it does not have enough stock quantity available.
-- Supplier 2 can fulfill the request for 1459.20€; this is the cheapest one so it should be highlighted
+- Supplier 2 can fulfill the request for 1459.20€; this is the cheapest one so it should be highlighted.
 - Supplier 3 can fulfill the request for 1470.60€.
 
 <i>(SCENARIO 3:)</i>
@@ -68,19 +70,40 @@ Inoltre puoi scegliere i rivenditori in base ai giorni di spedizione dell'ordine
 <b>THEN</b>
 - Supplier 1 can fulfill the request shipping the order in 5 days for 550€
 - Supplier 2 can fulfill the request shipping the order in 7 days for 485€.
-- Supplier 3 can fulfill the request shipping the order in 4 days for 576€. this is the fastest one so it should be highlighted
+- Supplier 3 can fulfill the request shipping the order in 4 days for 576€. this is the fastest one so it should be highlighted.
 
 <i>(SCENARIO 4:)</i>
 
-<b>GIVEN</b> 
+<b>GIVEN</b>  una richiesta di acquisto di 8X tastiere meccaniche fatta il 24 settembre, priority Economic
 
-<b>WHEN</b>
+<b>WHEN</b> Supplier 1 has 20pcs in stock at 50€ each. Min. days to ship order is 5
 
-<b>AND</b>
+<b>AND</b> Supplier 2 has 30pcs in stock at 55€ each. Min. days to ship order is 7
 
-<b>AND</b>
+<b>AND</b> Supplier 3 has 25pcs in stock at 50€ each. Min. days to ship order is 4
 
 <b>THEN</b>
+- Supplier 1 can fulfill the request for 400€, Min. days to ship order is 5
+- Supplier 2 can fulfill the request for 440€, Min. days to ship order is 7
+- Supplier 3 can fulfill the request for 400€, Min. days to ship order is 4. This is the cheapest one and the fastest one so it should be highlighted.
+
+### Funzioni
+
+- <b>Login/logout:</b>
+
+Per accedere alle funzionalità del sito, è necessario autenticarsi. Tramite una schermata di log-in è possibile far accedere al servizio solamente gli operatori a cui è stato assegnato un account valido. Senza eseguire l'accesso non è possibile accedere a nessuna delle funzionalità. Il nome utente e la password vengono salvati in un database; per evitare di esporre le password a chi utilizza il database, o a persone che provano ad attaccare il nostro sistema, è necessario codificare le password prima di salvare nel database. Tramite una funzione di hashing è possibile generare un hash per la password, a questo punto l'unico modo per verificare se la password inserita durante la fase di login è corretta, è quello di usare una funzione compare(), perché una volta codificata non è possibile risalire alla password in chiaro, ma solamente verificare se l'hash analizzata è stata generata da quella password.
+
+Una volta effettuato il login, la sessione dell'utente verrà salvata permettendogli di accedere a tutte le funzioni del sito; se si vuole cambiare account, o semplicemente terminare la sessione corrente, è presente un tasto per il logout: l'utente verra reindirizzato alla pagina di login e dovrà inserire nuovamente i dati corretti per autenticarsi.
+
+- <b>Ricerca rivenditori</b>
+
+Inserendo i dati relativi al nome di un prodotto e la quantità desiderata, l'utente può visualizzare una lista di tutti i rivenditori che possono soddisfare la richiesta; l'ordine con cui vengono visualizzati è basato sulla priorità impostata dall'utente: Economica o Veloce. Per mostrare all'utente la lista dei rivenditori, il server deve ricevere una richiesta contenente tutti i dati necessari, quindi se l'utente non compila interamente il form, la richiesta non parte e viene visualizzato un messaggio di errore; allo stesso modo se non vengono trovati dei rivenditori che soddisfano la richiesta, verrà mostrato un messaggio di errore. 
+
+Per velocizzare l'inserimento dei dati, e limitare gli errori dovuti ad una scrittura manuale, i nomi dei prodotti vengono inseriti nel form, e l'utente deve solo selezionare quello desiderato; per farlo è sufficente effettuare una richiesta al server quando viene caricata la pagina per la ricerca.
+
+- <b>Ordina/guadagno</b>
+
+Quando l'utente ha scelto il rivenditore, effettua l'ordine: viene mostrato un riassunto con le informazioni relative al nome del rivenditore e il prezzo di acquisto; inoltre viene mostrato il prezzo di vendità del singolo prodotto, e viene calcolato il guadagno in base alla vendità di tutte le unità comprate.
 
 ## Guida all'utilizzo
 
