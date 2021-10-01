@@ -105,8 +105,6 @@ Per velocizzare l'inserimento dei dati, e limitare gli errori dovuti ad una scri
 
 Quando l'utente ha scelto il rivenditore, effettua l'ordine: viene mostrato un riassunto con le informazioni relative al nome del rivenditore e il prezzo di acquisto; inoltre viene mostrato il prezzo di vendità del singolo prodotto, e viene calcolato il guadagno in base alla vendità di tutte le unità comprate.
 
-test
-
 ## Guida all'utilizzo
 
 Per accedere al servizio è necessario effettuare un login; gli account devono essere distribuiti agli operatori abilitati, che non possono scegliere di crearne di nuovi. I dati relativi agli account sono salvati in un database, e per proteggere le password le criptiamo prima di salvarle, in questo modo non è possibile risalire alla password in chiaro anche se venissero rubate le informazioni dal database. Per cambiare account o disconnettersi da quello attualmente in uso, è presente un tasto di logout, che elimina la sessione corrente e reindirizza alla pagina di login.
