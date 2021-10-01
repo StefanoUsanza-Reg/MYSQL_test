@@ -6,6 +6,8 @@ Software per la gestione del restock di un negozio.
 
 - [Analisi funzionalità](/README.md#analisi-funzionalità)
 
+- [Funzioni](/README.md#funzioni)
+
 - [Guida all'utilizzo](/README.md#guida-allutilizzo)
 
 
