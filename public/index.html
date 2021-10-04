@@ -46,15 +46,15 @@
     background-color: transparent;">
 <div class="card-body" style="text-align: center;">
     <form class="container-fluid" style="text-align: center;">
-        <label style="color: rgb(211, 73, 31);">nome prodotto</label>
+        <label style="color: rgb(211, 73, 31);">product name</label>
           <input id="input" class="form-control mr-sm-2" type="search" placeholder="Select a product" aria-label="Search" list="prodotti">
           <datalist id="prodotti"></datalist>
           <div class="col-auto"> 
-            <label style="color: rgb(211, 73, 31);">quantità</label>
+            <label style="color: rgb(211, 73, 31);">quantity</label>
             <input type="number" class="form-control" id="quant" placeholder="">
           </div>
           <div class="col-auto">
-            <label style="color: rgb(211, 73, 31);">priorità</label>
+            <label style="color: rgb(211, 73, 31);">priority</label>
             <select class="form-select" required aria-label="select example" id="priority">
                 <option>select a priority</option>
                 <option>Economic</option>
@@ -63,7 +63,7 @@
           </div>
           <div class="col-auto">
               <label></label>
-            <button type="button" class="btn btn-success form-control" id="ricerca">ricerca rivenditori</button>    
+            <button type="button" class="btn btn-success form-control" id="ricerca">Find a supplier</button>    
           </div>
     </form>
     <br>
@@ -75,11 +75,11 @@
   <table class="table table-bordered" style="text-align: center;background-color: white;" id="tabella">
       <thead>
         <tr>
-          <th scope="col">rivenditore</th>
-          <th scope="col">prezzo unità</th>
-          <th scope="col">prezzo finale</th>
-          <th scope="col">spedizione minima</th>
-          <th scope="col">ordina</th>
+          <th scope="col">Supplier</th>
+          <th scope="col">Price for unit</th>
+          <th scope="col">Final price</th>
+          <th scope="col">Minimun days to ship</th>
+          <th scope="col">Order</th>
         </tr>
       </thead>
      

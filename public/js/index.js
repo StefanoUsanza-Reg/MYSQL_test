@@ -41,11 +41,11 @@ function visualizza(results,quant){
     }
     else{
         visualizzaData += "<tr style='background-color: green; color: white'> <td>" + results[0].nome + "</td> <td>" + results[0].prezzo  + 
-        "€</td> <td>"+ results[0].prezzo_scontato +"€</td> <td>"+ results[0].spedizione + " giorni</td> <td> <a href='ordina.html?nome="+results[0].nome +"&prezzoFix="+results[0].prezzoFix+"&prezzo_scontato="+results[0].prezzo_scontato+"&quant="+quant+"' class='btn btn-primary'><i class='fas fa-check'></i></a> </td></tr>"      
+        "€</td> <td>"+ results[0].prezzo_scontato +"€</td> <td>"+ results[0].spedizione + " days</td> <td> <a href='ordina.html?nome="+results[0].nome +"&prezzoFix="+results[0].prezzoFix+"&prezzo_scontato="+results[0].prezzo_scontato+"&quant="+quant+"' class='btn btn-primary'><i class='fas fa-check'></i></a> </td></tr>"      
 
         for(let i=1; i<results.length; i++){
             visualizzaData += "<tr> <td>" + results[i].nome + "</td> <td>" + results[i].prezzo  + 
-            "€</td> <td>"+ results[i].prezzo_scontato +"€</td> <td>"+ results[i].spedizione + " giorni</td> <td> <a href='ordina.html?nome="+results[i].nome +"&prezzoFix="+results[i].prezzoFix+"&prezzo_scontato="+results[i].prezzo_scontato+"&quant="+quant+"' class='btn btn-primary'><i class='fas fa-check'></i></a> </td></tr>"      
+            "€</td> <td>"+ results[i].prezzo_scontato +"€</td> <td>"+ results[i].spedizione + " days</td> <td> <a href='ordina.html?nome="+results[i].nome +"&prezzoFix="+results[i].prezzoFix+"&prezzo_scontato="+results[i].prezzo_scontato+"&quant="+quant+"' class='btn btn-primary'><i class='fas fa-check'></i></a> </td></tr>"      
         }        
     }
 
