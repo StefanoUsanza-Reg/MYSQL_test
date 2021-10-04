@@ -23,109 +23,68 @@ let QUERY = "SELECT prodotto.nome as nomeProdotto, rivende.prezzo, rivende.quant
     "and id_sconto_extra = sconto_extra.id " +
     "and prodotto.nome='"
 
-/*
-    As a store owner
-    I want controllare la validità degli sconti offerti dai rivenditori
-    so that posso scegliere il rivenditore più conveniente
-
-    given una richiesta di acquisto di 12X monitor
-    when r1 ha 8pcs a 120$, e offre uno sconto del 5% con ordini con importo_min>= 1000$, spedizione min 5 giorni
-    and r2 ha 15pcs a 128$, e offre uno sconto del 3% con ordini con >5pcs, o del 5% con >10pcs, spedizione min 7 giorni
-    and r3 ha 23pcs a 129$, e offre uno sconto del 5% con ordini con importo_min>= 1000$, sconto extra del 2% se ordinato a settembre, spedizione min 4 giorni
-    than r3 ha accesso allo sconto del 5%
-*/
-
 describe('test', function () {
-    it('sconto should return 1459.20', function () {
-        //input
-        let nome_prodotto = 'Philips monitor 17”'
-        let quant = 12
+    describe.only('controlli sconti', function () {
+        //? sconto
+        it('sconto should return 1459.20', function () {
+            //input
+            let nome_prodotto = 'Philips monitor 17”'
+            let quant = 12
 
-        con.query(QUERY + nome_prodotto + "' and rivende.quantità>=" + quant, function (err, result, fields) {
-            if (err) throw err;
-            assert.equal(app.sconto(result, quant), 1489.92);
-        });
-    })
-    it('sconto extra should return 1441.19', function () {
-        //input
-        let nome_prodotto = 'Philips monitor 17”'
-        let quant = 12
+            con.query(QUERY + nome_prodotto + "' and rivende.quantità>=" + quant, function (err, result, fields) {
+                if (err) throw err;
+                //supplier 2, sconto del 5%
+                assert.equal(app.Sconto(result[0].prezzo * quant, result[0].valore), 1489.92);
+            });
+        })
+        //? sconto extra
+        it('sconto extra should return 1441.19', function () {
+            //input
+            let nome_prodotto = 'Philips monitor 17”'
+            let quant = 12
 
-        con.query(QUERY + nome_prodotto + "' and rivende.quantità>=" + quant, function (err, result, fields) {
-            if (err) throw err;
-            assert.equal(app.sconto_extra(result, quant), 1441.19);
-        });
-    })
-    it('migliore should return 1459.20', function () {
-        //input
-        let nome_prodotto = "Philips monitor 17”"
-        let quant = 12
-
-        con.query(QUERY + nome_prodotto + "' and rivende.quantità>=" + quant, function (err, result, fields) {
-            if (err) throw err;
-            assert.equal(app.migliore(result, quant), 1459.20);
-        });
-
-    })
-    describe('controlli sconti', function () {
-        /*
-            As a store owner
-            I want controllare la validità degli sconti offerti dai rivenditori
-            so that posso scegliere il rivenditore più conveniente
-
-            given una richiesta di acquisto di 12X monitor
-            when r3 ha 23pcs a 129$, e offre uno sconto del 5% con ordini con importo_min>= 1000$, sconto extra del 2% se ordinato a settembre, spedizione min 4 giorni
-            than lo sconto del 5% con importo_min>=1000$ offerto da r3 è valido per questa richiesta d'acquisto
-        */
-        it('importo_minimo should return valido', function () {
+            con.query(QUERY + nome_prodotto + "' and rivende.quantità>=" + quant, function (err, result, fields) {
+                if (err) throw err;
+                //supplier 3, sonto del 5% + sconto extra del 2%
+                var prezzo_scontato = app.Sconto(app.Sconto(result[2].prezzo * quant, result[2].valore),result[2].valore_extra)
+                assert.equal(Math.round((prezzo_scontato + Number.EPSILON) * 100) / 100, 1441.19)
+            });
+        })
+       //? importo minimo
+        it('importo_minimo should return valid', function () {
             //input
             let nome_prodotto = "Philips monitor 17”"
             let quant = 12
 
             con.query(QUERY + nome_prodotto + "' and rivende.quantità>=" + quant, function (err, result, fields) {
                 if (err) throw err;
-                assert.equal(app.importo_minimo(result, quant), "valido");
+                //supplier 3, importo minimo per sconto 1000€
+                assert.equal(app.importo_minimo(result, quant), "valid");
             });
         })
-        /*
-            As a store owner
-            I want controllare la validità degli sconti offerti dai rivenditori
-            so that posso scegliere il rivenditore più conveniente
-
-            given una richiesta di acquisto di 6X monitor
-            when r2 ha 15pcs a 128$, e offre uno sconto del 3% con ordini con >5pcs, o del 5% con >10pcs, spedizione min 7 giorni
-            than lo sconto del 3% con >5pcs offerto da r2 è valido per questa richiesta d'acquisto
-        */
-        it('quant should return valido', function () {
+       //? quant
+        it('quant should return valid', function () {
             //input
             let nome_prodotto = "Philips monitor 17”"
             let quant = 6
             con.query(QUERY + nome_prodotto + "' and rivende.quantità>=" + quant, function (err, result, fields) {
                 if (err) throw err;
-                assert.equal(app.quant(result, quant), "valido");
+                //quant massima disponibile dal supplier 1 = 8
+                assert.equal(app.quant(result, quant), "valid");
             });
         })
-
-        /*
-            As a store owner
-            I want controllare la validità degli sconti offerti dai rivenditori
-            so that posso scegliere il rivenditore più conveniente
-
-            given una richiesta di acquisto di 6X monitor fatta il 23 settembre
-            when r3 ha 23pcs a 129$, e offre uno sconto del 5% con ordini con importo_min>= 1000$, sconto extra del 2% se ordinato a settembre, spedizione min 4 giorni
-            than lo sconto extra del 2% ordinato a settembre offerto da r3 è valido per questa richiesta d'acquisto
-        */
-        it('data should return true', function () {
+       //? data
+        it('data should return valid', function () {
             //input
             let nome_prodotto = "Philips monitor 17”"
             let quant = 6
             let data = new Date('2021-09-23')
             con.query(QUERY + nome_prodotto + "' and rivende.quantità>=" + quant, function (err, result, fields) {
                 if (err) throw err;
-                assert.equal(app.data(result, data), "valido");
+                //periodo di validità sconto extra supplier 3, Settembre
+                assert.equal(app.data(result, data), "valid");
             });
         })
-
     })
     describe('restock', function () {
         /*
@@ -139,6 +98,7 @@ describe('test', function () {
             and r3 ha 23pcs a 129$, e offre uno sconto del 5% con ordini con importo_min>= 1000$, sconto extra del 2% se ordinato a settembre, spedizione min 4 giorni
             than il rivenditore più conveniente dovrebbe essere r3 con un prezzo finale di: 1441.19€
         */
+       //! delete
         it('restock should return il rivenditore r3 è il più conveniente con un prezzo finale di: 1441.19€', function () {
             //input
             let nome_prodotto = "Philips monitor 17”"
@@ -161,6 +121,7 @@ describe('test', function () {
             and r3 ha 23pcs a 129$, e offre uno sconto del 5% con ordini con importo_min>= 1000$, sconto extra del 2% se ordinato a settembre, spedizione min 4 giorni
             than il rivenditore più conveniente dovrebbe essere r2 con un prezzo finale di: 1459.20€
         */
+       //! delete
         it('restock2 should return il rivenditore r2 è il più conveniente con un prezzo finale di: 1459.2€', function () {
             //input
             let nome_prodotto = "Philips monitor 17”"
@@ -182,6 +143,7 @@ describe('test', function () {
             and r3 ha 15pcs a 120$, e offre uno sconto del 5% con ordini con importo_min>= 1000$,2% con >5pcs sconto extra del 2% se ordinato a settembre, spedizione min 4 giorni
             than il rivenditore più veloce dovrebbe essere r3 con 4 giorni e con un prezzo finale di: 576.24€
         */
+       //! delete
         it('fastRestock should return il rivenditore r3 è il più veloce consegnando in: 4 giorni, con un prezzo finale di: 576.24€', function () {
             //input
             let nome_prodotto = "sedia da ufficio"
@@ -203,6 +165,7 @@ describe('test', function () {
             and r3 ha 25pcs a 50$, spedizione min 4 giorni
             than il rivenditore più conveniente dovrebbe essere r3 con un prezzo finale di: 50€, spedizione minima: 4 giorni
         */
+       //! delete
         it('finalRestock should return il rivenditore r3 è il più conveniente con un prezzo finale di: 50€, spedizione minima: 4 giorni', function () {
             //input
             let nome_prodotto = "tastiera meccanica"
@@ -213,6 +176,7 @@ describe('test', function () {
                 assert.equal(app.finalRestock(result, quant, data), "il rivenditore rivenditore3 è il più conveniente con un prezzo finale di: 250€, spedizione minima: 4 giorni");
             });
         })
+        //? restock 1
         it('ultimateRestock should return il rivenditore rivenditore3 è il più conveniente con un prezzo finale di: 1441.19€, spedizione minima: 4 giorni', function () {
             //input
             let nome_prodotto = "Philips monitor 17”"
@@ -224,6 +188,7 @@ describe('test', function () {
                 assert.equal(app.ultimateRestock(result, quant, data, priority), "il rivenditore rivenditore3 è il più conveniente con un prezzo finale di: 1441.19€, spedizione minima: 4 giorni");
             });
         })
+        //? restock 2
         it('ultimateRestock2 should return il rivenditore rivenditore2 è il più conveniente con un prezzo finale di: 1459.2€, spedizione minima: 7 giorni', function () {
             //input
             let nome_prodotto = "Philips monitor 17”"
@@ -235,6 +200,7 @@ describe('test', function () {
                 assert.equal(app.ultimateRestock(result, quant, data, priority), "il rivenditore rivenditore2 è il più conveniente con un prezzo finale di: 1459.2€, spedizione minima: 7 giorni");
             });
         })
+        //? restock 3
         it('ultimateRestock3 should return il rivenditore rivenditore3 è il più veloce con una spedizione minima: 4 giorni, prezzo finale di: 576.24€', function () {
             //input
             let nome_prodotto = "sedia da ufficio"
@@ -246,6 +212,7 @@ describe('test', function () {
                 assert.equal(app.ultimateRestock(result, quant, data, priority), "il rivenditore rivenditore3 è il più veloce con una spedizione minima: 4 giorni, prezzo finale di: 576.24€");
             });
         })
+        //? restock
         it('ultimateRestock4 should return il rivenditore rivenditore2 è il più conveniente con un prezzo finale di: 485€, spedizione minima: 7 giorni', function () {
             //input
             let nome_prodotto = "sedia da ufficio"
@@ -257,6 +224,7 @@ describe('test', function () {
                 assert.equal(app.ultimateRestock(result, quant, data, priority), "il rivenditore rivenditore2 è il più conveniente con un prezzo finale di: 485€, spedizione minima: 7 giorni");
             });
         })
+        //? restock 5
         it('ultimateRestock5 should return il rivenditore rivenditore3 è il più conveniente con un prezzo finale di: 400€, spedizione minima: 4 giorni', function () {
             //input
             let nome_prodotto = "tastiera meccanica"
@@ -270,6 +238,7 @@ describe('test', function () {
         })
     })
     describe('result vuoto', function () {
+        //? vuoto
         it('vuoto should return vuoto', function () {
             //input
             let nome_prodotto = "tastiera meccanica"
@@ -286,6 +255,7 @@ describe('test', function () {
             assert.equal(app.visualizza(), true);
 
         })
+        //? sort Multiplo
         it('sort should sort', function () {
             //input
             results = []

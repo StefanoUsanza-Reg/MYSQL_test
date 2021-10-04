@@ -1,73 +1,27 @@
 const multisort = require("multisort")
 
 module.exports = {
-    sconto: function (result, quant) {
-        function Sconto(numero, percentuale) {
-            //console.log("prezzo di: "+ numero)
-            //console.log("sconto di: "+ (numero * percentuale)/100)
-            return numero - (numero * percentuale) / 100
-        }
-        return Sconto(result[0].prezzo * quant, result[0].valore)
-    },
     //funzione sconto definitiva
     Sconto: function(numero,percentuale){
         return numero - (numero * percentuale)/100
     },
-    sconto_extra: function (result, quant) {
-        function Sconto(numero, percentuale) {
-            //console.log("prezzo di: "+ numero)
-            //console.log("sconto di: "+ (numero * percentuale)/100)
-            return numero - (numero * percentuale) / 100
-        }
-        function scontoExtra(numero, percentuale) {
-            //console.log("sconto extra di: "+ (numero * percentuale)/100)
-            return numero - (numero * percentuale) / 100
-        }
-        var numb = scontoExtra(Sconto(result[2].prezzo * quant, result[2].valore), result[2].valore_extra)
-        var rounded = Math.round((numb + Number.EPSILON) * 100) / 100;
-        //console.log("prezzo finale: "+ rounded)
-        return rounded
-    },
-    migliore: function (result, quant) {
-        function Sconto(numero, percentuale) {
-            //console.log("prezzo di: "+ numero)
-            //console.log("sconto di: "+ (numero * percentuale)/100)
-            return numero - (numero * percentuale) / 100
-        }
-        temp = Sconto(result[0].prezzo * quant, result[0].valore)
-        //console.log(Sconto(result[0].prezzo*quant,result[0].valore))
-        for (let i = 1; i < result.length; i++) {
-            //console.log(Sconto(result[i].prezzo*quant,result[i].valore))
-            if (Sconto(result[i].prezzo * quant, result[i].valore) < temp) {
-                temp = Sconto(result[i].prezzo * quant, result[i].valore)
-            }
-        }
-        return temp
-    },
     importo_minimo: function (result, quant) {
-        //console.log("importo minimo: "+result[2].importo_minimo)
-        //console.log("importo: "+result[2].prezzo*quant)
         if (result[2].importo_minimo <= (result[2].prezzo * quant))
-            return "valido"
+            return "valid"
         else
-            return "non valido"
+            return "invalid"
     },
     quant: function (result, quant) {
-        //console.log("quant min: "+ result[1].quantità_min)
-        //console.log("quant richiesta: "+ quant)
         if (quant >= result[1].quantità_min)
-            return "valido"
+            return "valid"
         else
-            return "non valido"
+            return "invalid"
     },
     data: function (result, data) {
-        //console.log("data ordinazine: "+ data)
-        //console.log("data inizio sconto: "+ result[3].data_inizio)
-        //console.log("data fine sconto: "+ result[3].data_fine)
         if (data >= result[3].data_inizio && data <= result[3].data_fine)
-            return "valido"
+            return "valid"
         else
-            return "non  valido"
+            return "invalid"
     },
     restock: function (result, quant, data) {
 
