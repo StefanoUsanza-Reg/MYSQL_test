@@ -115,8 +115,8 @@ The user can always choose the supplier ho prefers, even though it's not the one
 ### Dependencies
 
 - Database: [MYSQL](https://github.com/mysqljs/mysql#readme)
-- Server: [Express](http://expressjs.com/)
 - Data encryption: [Bcrypt](https://github.com/kelektiv/node.bcrypt.js#readme)
+- Server: [Express](http://expressjs.com/)
 - Test framework: [Mocha](https://mochajs.org/)
 - TDD/BDD Test assertion library: [Chai](https://www.chaijs.com/)
 
