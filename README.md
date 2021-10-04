@@ -130,5 +130,5 @@ In base alla priorità di ricerca selezionata verrà evidenziato il rivenditore 
 
 L'utente può sempre scegliere il rivenditore che preferisce, anche se non è quello evidenziato dal sistema; per questo a fianco di ogni rivenditore è presente un tasto che permette di concludere l'ordine con quel rivenditore specifico. Una volta comfermato l'ordine viene mostrato il prezzo a cui verranno venduti gli oggetti, il prezzo d'acquisto, e il possibile guadagno vendendo l'intero ordine. A questo punto l'utente può tornare al form per inserire nuovi dati ed effettuare una nuova ricerca opppure effetuare il logout e tornare alla schermata di login.
 
-![Screenshot (16)](https://user-images.githubusercontent.com/90613113/135643966-3d4d9243-6378-4a71-95eb-82047b98c33d.png)
+![Screenshot (20)](https://user-images.githubusercontent.com/90613113/135850530-300ec8cf-8722-4188-a24f-57c6d4e4382a.png)
 
