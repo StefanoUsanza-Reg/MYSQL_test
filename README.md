@@ -13,7 +13,7 @@ Software for managing a store's restock.
 
 ## Problem analysis
 
-your shop sell products at a fix prices, but when you need to stock from supplier, you want to choose the cheapest one based on the selling prices and discounts they offer.
+your shop sell products at a fix prices, but when you need to restock from supplier, you want to choose the cheapest one based on the selling prices and discounts they offer.
 The discount they offer may be related to:
 - the quantity of the product request
 - the total amount of the order
@@ -24,13 +24,13 @@ You can also choose supplier based on the minimun days to ship the order in case
 ## Functional analysis
 <b>AS</b> store owner
 
-<b>I WANT</b> controllare i prezzi di un prodotto offerti da rivenditori diversi
+<b>I WANT</b> check the prices of a product offered by different suppliers
 
-<b>SO THAT</b> quando devo fare restock di un prodotto, posso scegliere se comprare dal rivenditore più conveniente, o dal più veloce a consegnare l'ordine
+<b>SO THAT</b> when I have to make a product’s restock, I can choose whether to buy from the cheapest supplier, or from the fastest to deliver the order
 
 <i>(SCENARIO 1:)</i>
 
-<b>GIVEN</b> Una richiesta di acquisto di 12X monitor fatta il 24 settembre, priority Economic
+<b>GIVEN</b> An order of 12 Philips monitor 17” made on September 24, priority Economic
 
 <b>WHEN</b> Supplier 1 has 8pcs in stock at 120€ each, and offers 5% discount for purchases of minimum 1000€. Min. days to ship order is 5
 
@@ -46,7 +46,7 @@ You can also choose supplier based on the minimun days to ship the order in case
 
 <i>(SCENARIO 2:)</i>
 
-<b>GIVEN</b> Una richiesta di acquisto di 12X monitor fatta il 3 novembre, priority Economic
+<b>GIVEN</b> An order of 12 Philips monitor 17” made on November 3, priority Economic
 
 <b>WHEN</b> Supplier 1 has 8pcs in stock at 120€ each, and offers 5% discount for purchases of minimum 1000€. Min. days to ship order is 5
 
@@ -61,7 +61,7 @@ You can also choose supplier based on the minimun days to ship the order in case
 
 <i>(SCENARIO 3:)</i>
 
-<b>GIVEN</b> una richiesta di acquisto di 5X sedie da uffico fatta il 24 settembre, priority Fast
+<b>GIVEN</b> An order of 5 office chairs made on September 24, priority Fast
 
 <b>WHEN</b> Supplier 1 has 10pcs in stock at 110€ each, and offers 5% discount for purchases of minimum 1000€. Min. days to ship order is 5
 
@@ -76,7 +76,7 @@ You can also choose supplier based on the minimun days to ship the order in case
 
 <i>(SCENARIO 4:)</i>
 
-<b>GIVEN</b>  una richiesta di acquisto di 8X tastiere meccaniche fatta il 24 settembre, priority Economic
+<b>GIVEN</b>  An order of 8 mechanical keyboards made on September 24, priority Economic
 
 <b>WHEN</b> Supplier 1 has 20pcs in stock at 50€ each. Min. days to ship order is 5
 
