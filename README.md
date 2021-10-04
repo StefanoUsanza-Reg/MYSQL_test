@@ -107,6 +107,19 @@ To speed up the data entry, and limit errors due to manual writing, product name
 
 The user can always choose the supplier ho prefers, even though it's not the one highlighted by the system; for this reason there is a button next to each supplier that allows to conclude the order with that specific supplier. Once the order is confirmed, the price at which the items will be sold, the purchase price, and the possible profit by selling the entire order will be shown. At this point the user can return to the form to enter new data and perform a new search or log out and return to the login screen.
 
+## Technologies used
+
+- Node.js
+- package manager: npm
+
+### Dependencies
+
+- Database: [MYSQL](https://github.com/mysqljs/mysql#readme)
+- Server: [Express](http://expressjs.com/)
+- Data encryption: [Bcrypt](https://github.com/kelektiv/node.bcrypt.js#readme)
+- Test framework: [Mocha](https://mochajs.org/)
+- TDD/BDD Test assertion library: [Chai](https://www.chaijs.com/)
+
 ## User guide
 
 Per accedere al servizio è necessario autenticarsi; gli account devono essere distribuiti agli operatori abilitati, che non possono scegliere di crearne di nuovi. Una volta autenticati, sarà possibile accedere a tutte le funzioni; per cambiare account o disconnettersi da quello attualmente in uso, è presente un tasto di logout, che elimina la sessione corrente e reindirizza alla pagina di login.
