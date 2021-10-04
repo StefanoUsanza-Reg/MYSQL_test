@@ -8,6 +8,8 @@ Software for managing a store's restock.
 
 - [Functions](/README.md#functions)
 
+- [Tecnologies used](/README.md#technologies-used)
+
 - [User guide](/README.md#user-guide)
 
 
