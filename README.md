@@ -123,27 +123,25 @@ The user can always choose the supplier ho prefers, even though it's not the one
 - TDD/BDD Test assertion library: [Chai](https://www.chaijs.com/)
 
 ## User guide
+To access the service you need to authenticate; accounts must be distributed to authorized operators, who can not choose to create new ones. Once logged in, the user’s session will be saved allowing him to access all functions of the site; if you want to change accounts, or simply terminate the current session, there is a logout button: the user will be redirected to the login page and will have to enter again the correct data to authenticate. When you want to place a Restock order, it is sufficient to enter the name of the product and the desired quantity in the form, specifying the priority for the search:
 
-Per accedere al servizio è necessario autenticarsi; gli account devono essere distribuiti agli operatori abilitati, che non possono scegliere di crearne di nuovi. Una volta autenticati, sarà possibile accedere a tutte le funzioni; per cambiare account o disconnettersi da quello attualmente in uso, è presente un tasto di logout, che elimina la sessione corrente e reindirizza alla pagina di login.
+- Economic, if you want to find the cheapest supplier
+- Fast, if you want the fastest supplier to ship the order
 
-Quando si vuole effettuare un ordine di restock, è sufficente inserire il nome del prodotto e la quantità desiserata nel form, specificando la priorità per la ricerca: 
-- economica, se si vuole individuare il rivenditore che offre il prezzo più basso
-- veloce, se si vuole individuare il rivenditore che spedisce nel minor tempo
-
-I nomi dei prodotti salvati nel database saranno inseriti automaticamente nel form, in questo modo l'utente deve solamente selezionare il nome desiderato, evitando possibili errori di scrittura manuale; lo stesso vale per le tipologie di priorità.
+To speed up the data entry, and limit errors due to manual writing, product names are automatically entered into the form, and the user only has to select the desired one, the same applies to the types of priorities.
 
 ![Screenshot (19)](https://user-images.githubusercontent.com/90613113/135849690-62eee038-2f4d-4813-b21d-d921360ab98c.png)
 
-Con i dati inseriti verrà effettuata una richiesta al server dove si trova il database che contiene tutti i dati relativi ai prodotti ordinabili e i rivenditori che li offrono.
-Dopo aver applicato gli sconti disponibili, viene visualizzata una lista con tutti i rivenditori che sono in grado di soddisfare la richiesta di restock: se viene selezionata una quantità di prodotti superiore a quella disponibile per un rivenditore, questo non verrà mostrato.
+With the data entered in the form will be made a request to the server where is located the database that contains all the data relating to the products that can be ordered and the suppliers that offer them. After applying the available discounts, a list is displayed with all suppliers that are able to meet the demand for Restock; If more products are selected than are available for a supplier, this will not be shown.
 
-In base alla priorità di ricerca selezionata verrà evidenziato il rivenditore più opportuno: 
-- economica, viene evidenziato il rivenditore che offre il prezzo più basso, e in caso di più prezzi uguali, verrà scelto il più veloce a consegnare
-- veloce, viene evidenziato il rivenditore che offre la spedizione più veloce, e in caso di tempistiche uguali, verrà scelto il più economico
+Based on the selected search priority will be highlighted the most appropriate suppliers:
+
+- Economic, the supplier offering the lowest price is highlighted, and in case of more equal prices, the fastest will be chosen to deliver.
+- Fast, the dealer that offers the fastest shipment is highlighted, and in case of equal timing, the cheapest will be chosen.
 
 ![Screenshot (18)](https://user-images.githubusercontent.com/90613113/135849755-1dc4eb78-b600-4810-b284-e2afd2e66674.png)
 
-L'utente può sempre scegliere il rivenditore che preferisce, anche se non è quello evidenziato dal sistema; per questo a fianco di ogni rivenditore è presente un tasto che permette di concludere l'ordine con quel rivenditore specifico. Una volta comfermato l'ordine viene mostrato il prezzo a cui verranno venduti gli oggetti, il prezzo d'acquisto, e il possibile guadagno vendendo l'intero ordine. A questo punto l'utente può tornare al form per inserire nuovi dati ed effettuare una nuova ricerca opppure effetuare il logout e tornare alla schermata di login.
+The user can always choose the supplier ho prefers, even though it's not the one highlighted by the system; for this reason there is a button next to each supplier that allows to conclude the order with that specific supplier. Once the order is confirmed, the price at which the items will be sold, the purchase price, and the possible profit by selling the entire order will be shown. At this point the user can return to the form to enter new data and perform a new search or log out and return to the login screen.
 
 ![Screenshot (20)](https://user-images.githubusercontent.com/90613113/135850530-300ec8cf-8722-4188-a24f-57c6d4e4382a.png)
 
