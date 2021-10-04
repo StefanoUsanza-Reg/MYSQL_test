@@ -1,23 +1,25 @@
 # Restock
 
-Software per la gestione del restock di un negozio.
+Software for managing a store's restock.
 
-- [Analisi problema](/README.md#analisi-problema)
+- [Problem analysis](/README.md#problem-analysis)
 
-- [Analisi funzionalità](/README.md#analisi-funzionalità)
+- [Functional analysis](/README.md#analisi-funzionalità)
 
-- [Funzioni](/README.md#funzioni)
+- [Functions](/README.md#funzioni)
 
-- [Guida all'utilizzo](/README.md#guida-allutilizzo)
+- [User guide](/README.md#guida-allutilizzo)
 
 
-## Analisi problema
+## Problem analysis
 
-Il tuo negozio vende i prodotti a dei prezzi fissi, ma quando vuoi rifornirti dai rivenditori, vuoi scegliere quello più conveniente in base ai prezzi di vendita e gli sconti che offrono: 
-- gli sconti possono essere correlati alla quantità di prodotti richiesti
-- all'importo totale dell'ordine
-- o potrebbero essere limitati ad alcuni periodi dell'anno
-Inoltre puoi scegliere i rivenditori in base ai giorni di spedizione dell'ordine, in caso fosse necessario una consegna urgente.
+your shop sell products at a fix prices, but when you need to stock from supplier, you want to choose the cheapest one based on the selling prices and discounts they offer.
+The discount they offer may be related to:
+- the quantity of the product request
+- the total amount of the order
+- or may be limited to certain periods of the year
+
+You can also choose supplier based on the minimun days to ship the order in case an urgent delivery is required.
 
 ## Analisi funzionalità
 <b>AS</b> store owner
