@@ -12,7 +12,6 @@ var con = mysql.createConnection({
 });
 con.connect(function (err) {
     if (err) throw err;
-    console.log("connected to the database!")
 })
 let QUERY = "SELECT prodotto.nome as nomeProdotto, rivende.prezzo, rivende.quantità, rivenditore.nome as nomeRivenditore, rivenditore.spedizione_min, " +
     "sconto.valore, sconto_extra.valore as valore_extra, sconto.importo_minimo, sconto.quantità_min, sconto_extra.data_inizio, sconto_extra.data_fine " +
@@ -24,7 +23,32 @@ let QUERY = "SELECT prodotto.nome as nomeProdotto, rivende.prezzo, rivende.quant
     "and prodotto.nome='"
 
 describe('test', function () {
-    describe.only('controlli sconti', function () {
+    describe('result vuoto', function () {
+        //? vuoto
+        it('vuoto should return vuoto', function () {
+            //input
+            let nome_prodotto = "tastiera meccanica"
+            let quant = 50
+            let data = new Date("2021-09-24")
+            con.query(QUERY + nome_prodotto + "' and rivende.quantità>=" + quant, function (err, result, fields) {
+                if (err) throw err;
+                assert.equal(app.vuoto(result), "vuoto");
+            });
+        })
+    })
+    describe('sort array', function () {
+        //? sort Multiplo
+        it('sort should sort', function () {
+            //input
+            results = []
+            exp = []
+            exp.push({ nome: 'r3', prezzo: 100, sped: 4 }, { nome: 'r1', prezzo: 100, sped: 5 }, { nome: 'r2', prezzo: 150, sped: 7 })
+            results.push({ nome: 'r1', prezzo: 100, sped: 5 }, { nome: 'r2', prezzo: 150, sped: 7 }, { nome: 'r3', prezzo: 100, sped: 4 })
+            //console.log(results)
+            assert.deepEqual(app.sortMultiplo(results), exp);
+        })
+    })
+    describe('controlli sconti', function () {
         //? sconto
         it('sconto should return 1459.20', function () {
             //input
@@ -87,97 +111,8 @@ describe('test', function () {
         })
     })
     describe('restock', function () {
-        /*
-            As a store owner
-            I want controllare i prezzi proposti dai rivenditori scontati
-            so that posso scegliere quello più conveniente
-
-            given una richiesta di acquisto di 12X monitor fatta il 24 settembre
-            when r1 ha 8pcs a 120$, e offre uno sconto del 5% con ordini con importo_min>= 1000$, spedizione min 5 giorni
-            and r2 ha 15pcs a 128$, e offre uno sconto del 3% con ordini con >5pcs, o del 5% con >10pcs, spedizione min 7 giorni
-            and r3 ha 23pcs a 129$, e offre uno sconto del 5% con ordini con importo_min>= 1000$, sconto extra del 2% se ordinato a settembre, spedizione min 4 giorni
-            than il rivenditore più conveniente dovrebbe essere r3 con un prezzo finale di: 1441.19€
-        */
-       //! delete
-        it('restock should return il rivenditore r3 è il più conveniente con un prezzo finale di: 1441.19€', function () {
-            //input
-            let nome_prodotto = "Philips monitor 17”"
-            let quant = 12
-            let data = new Date("2021-09-24")
-            con.query(QUERY + nome_prodotto + "' and rivende.quantità>=" + quant, function (err, result, fields) {
-                if (err) throw err;
-                assert.equal(app.restock(result, quant, data), "il rivenditore rivenditore3 è il più conveniente con un prezzo finale di: 1441.19€, spedizione minima: 4 giorni");
-            });
-        })
-
-        /*
-            As a store owner
-            I want controllare i prezzi proposti dai rivenditori scontati
-            so that posso scegliere quello più conveniente
-
-            given una richiesta di acquisto di 12X monitor fatta il 3 novembre
-            when r1 ha 8pcs a 120$, e offre uno sconto del 5% con ordini con importo_min>= 1000$, spedizione min 5 giorni
-            and r2 ha 15pcs a 128$, e offre uno sconto del 3% con ordini con >5pcs, o del 5% con >10pcs, spedizione min 7 giorni
-            and r3 ha 23pcs a 129$, e offre uno sconto del 5% con ordini con importo_min>= 1000$, sconto extra del 2% se ordinato a settembre, spedizione min 4 giorni
-            than il rivenditore più conveniente dovrebbe essere r2 con un prezzo finale di: 1459.20€
-        */
-       //! delete
-        it('restock2 should return il rivenditore r2 è il più conveniente con un prezzo finale di: 1459.2€', function () {
-            //input
-            let nome_prodotto = "Philips monitor 17”"
-            let quant = 12
-            let data = new Date("2021-11-3")
-            con.query(QUERY + nome_prodotto + "' and rivende.quantità>=" + quant, function (err, result, fields) {
-                if (err) throw err;
-                assert.equal(app.restock(result, quant, data), "il rivenditore rivenditore2 è il più conveniente con un prezzo finale di: 1459.2€, spedizione minima: 7 giorni");
-            });
-        })
-        /*
-            As a store owner
-            I want controllare i tempi di consegna offerti dai rivenditori
-            so that posso scegliere quello più veloce
-
-            given una richiesta di acquisto di 5X sedie fatta il 24 settembre
-            when r1 ha 10pcs a 110$, e offre uno sconto del 5% con ordini con importo_min>= 1000$, spedizione min 5 giorni
-            and r2 ha 8pcs a 100$, e offre uno sconto del 3% con ordini con >5pcs, o del 5% con >10pcs, spedizione min 7 giorni
-            and r3 ha 15pcs a 120$, e offre uno sconto del 5% con ordini con importo_min>= 1000$,2% con >5pcs sconto extra del 2% se ordinato a settembre, spedizione min 4 giorni
-            than il rivenditore più veloce dovrebbe essere r3 con 4 giorni e con un prezzo finale di: 576.24€
-        */
-       //! delete
-        it('fastRestock should return il rivenditore r3 è il più veloce consegnando in: 4 giorni, con un prezzo finale di: 576.24€', function () {
-            //input
-            let nome_prodotto = "sedia da ufficio"
-            let quant = 5
-            let data = new Date("2021-09-24")
-            con.query(QUERY + nome_prodotto + "' and rivende.quantità>=" + quant, function (err, result, fields) {
-                if (err) throw err;
-                assert.equal(app.fastRestock(result, quant, data), "il rivenditore rivenditore3 è il più veloce consegnando in: 4 giorni, con un prezzo finale di: 576.24€");
-            });
-        })
-        /*
-            As a store owner
-            I want controllare i prezzi proposti dai rivenditori e i tempi di spedizione
-            so that posso scegliere quello più conveniente e in caso di parità quello più veloce
-
-            given una richiesta di acquisto di 5X tastiere
-            when r1 ha 20pcs a 50$, spedizione min 5 giorni
-            and r2 ha 30pcs a 55$, spedizione min 7 giorni
-            and r3 ha 25pcs a 50$, spedizione min 4 giorni
-            than il rivenditore più conveniente dovrebbe essere r3 con un prezzo finale di: 50€, spedizione minima: 4 giorni
-        */
-       //! delete
-        it('finalRestock should return il rivenditore r3 è il più conveniente con un prezzo finale di: 50€, spedizione minima: 4 giorni', function () {
-            //input
-            let nome_prodotto = "tastiera meccanica"
-            let quant = 5
-            let data = new Date("2021-09-24")
-            con.query(QUERY + nome_prodotto + "' and rivende.quantità>=" + quant, function (err, result, fields) {
-                if (err) throw err;
-                assert.equal(app.finalRestock(result, quant, data), "il rivenditore rivenditore3 è il più conveniente con un prezzo finale di: 250€, spedizione minima: 4 giorni");
-            });
-        })
         //? restock 1
-        it('ultimateRestock should return il rivenditore rivenditore3 è il più conveniente con un prezzo finale di: 1441.19€, spedizione minima: 4 giorni', function () {
+        it('ultimateRestock1 should return il fornitore Supplier 3 è il più conveniente con un prezzo finale di: 1441.19€, spedizione minima: 4 giorni', function () {
             //input
             let nome_prodotto = "Philips monitor 17”"
             let quant = 12
@@ -185,11 +120,11 @@ describe('test', function () {
             let priority = "Economic"
             con.query(QUERY + nome_prodotto + "' and rivende.quantità>=" + quant, function (err, result, fields) {
                 if (err) throw err;
-                assert.equal(app.ultimateRestock(result, quant, data, priority), "il rivenditore rivenditore3 è il più conveniente con un prezzo finale di: 1441.19€, spedizione minima: 4 giorni");
+                assert.equal(app.ultimateRestock(result, quant, data, priority), "il fornitore Supplier 3 è il più conveniente con un prezzo finale di: 1441.19€, spedizione minima: 4 giorni");
             });
         })
         //? restock 2
-        it('ultimateRestock2 should return il rivenditore rivenditore2 è il più conveniente con un prezzo finale di: 1459.2€, spedizione minima: 7 giorni', function () {
+        it('ultimateRestock2 should return il fornitore Supplier 2 è il più conveniente con un prezzo finale di: 1459.2€, spedizione minima: 7 giorni', function () {
             //input
             let nome_prodotto = "Philips monitor 17”"
             let quant = 12
@@ -197,11 +132,11 @@ describe('test', function () {
             let priority = "Economic"
             con.query(QUERY + nome_prodotto + "' and rivende.quantità>=" + quant, function (err, result, fields) {
                 if (err) throw err;
-                assert.equal(app.ultimateRestock(result, quant, data, priority), "il rivenditore rivenditore2 è il più conveniente con un prezzo finale di: 1459.2€, spedizione minima: 7 giorni");
+                assert.equal(app.ultimateRestock(result, quant, data, priority), "il fornitore Supplier 2 è il più conveniente con un prezzo finale di: 1459.2€, spedizione minima: 7 giorni");
             });
         })
         //? restock 3
-        it('ultimateRestock3 should return il rivenditore rivenditore3 è il più veloce con una spedizione minima: 4 giorni, prezzo finale di: 576.24€', function () {
+        it('ultimateRestock3 should return il fornitore Supplier 3 è il più veloce con una spedizione minima: 4 giorni, prezzo finale di: 576.24€', function () {
             //input
             let nome_prodotto = "sedia da ufficio"
             let quant = 5
@@ -209,11 +144,11 @@ describe('test', function () {
             let priority = "Fast"
             con.query(QUERY + nome_prodotto + "' and rivende.quantità>=" + quant, function (err, result, fields) {
                 if (err) throw err;
-                assert.equal(app.ultimateRestock(result, quant, data, priority), "il rivenditore rivenditore3 è il più veloce con una spedizione minima: 4 giorni, prezzo finale di: 576.24€");
+                assert.equal(app.ultimateRestock(result, quant, data, priority), "il fornitore Supplier 3 è il più veloce con una spedizione minima: 4 giorni, prezzo finale di: 576.24€");
             });
         })
         //? restock
-        it('ultimateRestock4 should return il rivenditore rivenditore2 è il più conveniente con un prezzo finale di: 485€, spedizione minima: 7 giorni', function () {
+        it('ultimateRestock4 should return il fornitore Supplier 2 è il più conveniente con un prezzo finale di: 485€, spedizione minima: 7 giorni', function () {
             //input
             let nome_prodotto = "sedia da ufficio"
             let quant = 5
@@ -221,11 +156,11 @@ describe('test', function () {
             let priority = "Economic"
             con.query(QUERY + nome_prodotto + "' and rivende.quantità>=" + quant, function (err, result, fields) {
                 if (err) throw err;
-                assert.equal(app.ultimateRestock(result, quant, data, priority), "il rivenditore rivenditore2 è il più conveniente con un prezzo finale di: 485€, spedizione minima: 7 giorni");
+                assert.equal(app.ultimateRestock(result, quant, data, priority), "il fornitore Supplier 2 è il più conveniente con un prezzo finale di: 485€, spedizione minima: 7 giorni");
             });
         })
         //? restock 5
-        it('ultimateRestock5 should return il rivenditore rivenditore3 è il più conveniente con un prezzo finale di: 400€, spedizione minima: 4 giorni', function () {
+        it('ultimateRestock5 should return il fornitore Supplier 3 è il più conveniente con un prezzo finale di: 400€, spedizione minima: 4 giorni', function () {
             //input
             let nome_prodotto = "tastiera meccanica"
             let quant = 8
@@ -233,39 +168,10 @@ describe('test', function () {
             let priority = "Economic"
             con.query(QUERY + nome_prodotto + "' and rivende.quantità>=" + quant, function (err, result, fields) {
                 if (err) throw err;
-                assert.equal(app.ultimateRestock(result, quant, data, priority), "il rivenditore rivenditore3 è il più conveniente con un prezzo finale di: 400€, spedizione minima: 4 giorni");
+                assert.equal(app.ultimateRestock(result, quant, data, priority), "il fornitore Supplier 3 è il più conveniente con un prezzo finale di: 400€, spedizione minima: 4 giorni");
+                //chiudi la connessione al database dopo l'ultimo test
+                con.end()
             });
-        })
-    })
-    describe('result vuoto', function () {
-        //? vuoto
-        it('vuoto should return vuoto', function () {
-            //input
-            let nome_prodotto = "tastiera meccanica"
-            let quant = 50
-            let data = new Date("2021-09-24")
-            con.query(QUERY + nome_prodotto + "' and rivende.quantità>=" + quant, function (err, result, fields) {
-                if (err) throw err;
-                assert.equal(app.vuoto(result), "vuoto");
-            });
-        })
-    })
-    describe('save data', function () {
-        it('visualizza should return true', function () {
-            assert.equal(app.visualizza(), true);
-
-        })
-        //? sort Multiplo
-        it('sort should sort', function () {
-            //input
-            results = []
-            exp = []
-            exp.push({ nome: 'r3', prezzo: 100, sped: 4 }, { nome: 'r1', prezzo: 100, sped: 5 }, { nome: 'r2', prezzo: 150, sped: 7 })
-            results.push({ nome: 'r1', prezzo: 100, sped: 5 }, { nome: 'r2', prezzo: 150, sped: 7 }, { nome: 'r3', prezzo: 100, sped: 4 })
-            //console.log(results)
-            assert.deepEqual(app.sortMultiplo(results), exp);
-            //chiudi la connessione al database dopo l'ultimo test
-            con.end()
         })
     })
 })
