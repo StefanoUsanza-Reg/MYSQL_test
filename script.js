@@ -38,7 +38,6 @@ module.exports = {
             'sped'
         ];
         multisort(results, criteria)
-        //console.log(results)
         return results
     },
     //for Testing

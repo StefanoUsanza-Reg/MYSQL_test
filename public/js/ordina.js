@@ -27,13 +27,30 @@ var fix = urlParams.get('prezzoFix')
 var scontato = urlParams.get('prezzo_scontato')
 var quant = urlParams.get('quant')
 var guad = (fix*quant)-scontato 
+var prodotto = urlParams.get('prodotto')
+console.log(prodotto)
 
 const titolo= document.getElementById('titolo')
 const prezzoFix = document.getElementById('prezzoFix')
 const prezzo_scontato = document.getElementById('prezzo_scontato')
 const guadagno = document.getElementById('guadagno')
+const id = document.getElementById('id')
 
+var order =[]
+order.push({supplier: nome,prodotto: 'Philips monitor 17”',quant: quant,prezzoFix: fix + "€",prezzoFinal: scontato + "€",profit: (Math.round((guad + Number.EPSILON) * 100) / 100) + "€"})
+fetch('https://server-express.glitch.me/genera',{
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(order[0])
+})
+.then(r=>r.json())
+.then(d=>{
 titolo.innerHTML = nome
 prezzoFix.innerHTML = fix + "€"
 prezzo_scontato.innerHTML = scontato + "€"
 guadagno.innerHTML = (Math.round((guad + Number.EPSILON) * 100) / 100) + "€"
+id.innerHTML = d  
+})  
+
