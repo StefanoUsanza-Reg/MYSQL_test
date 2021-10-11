@@ -143,5 +143,16 @@ Based on the selected search priority will be highlighted the most appropriate s
 
 The user can always choose the supplier ho prefers, even though it's not the one highlighted by the system; for this reason there is a button next to each supplier that allows to conclude the order with that specific supplier. Once the order is confirmed, the price at which the items will be sold, the purchase price, and the possible profit by selling the entire order will be shown. At this point the user can return to the form to enter new data and perform a new search or log out and return to the login screen.
 
-![Screenshot (20)](https://user-images.githubusercontent.com/90613113/135850530-300ec8cf-8722-4188-a24f-57c6d4e4382a.png)
+![Screenshot (21)](https://user-images.githubusercontent.com/90613113/136751620-ed4a5a6e-844f-48c5-819a-e3dfbb8a0b65.png)
 
+If the user want to save the information of an order, to create an order history, or simply to remember a specific order; he can do it by using google documents.
+By installing an add-on it will be possible to notice the presence of a new item in the menu: Order; Through this new component you can access two new functions:
+- Order all: print in the document the list of all orders placed.
+- Order By id: opens a side bar where there is a form, entering the id of an order, the information of that order will be printed.
+
+You can retrieve the id of an order directly from the application at the time of the purchase confirmation, alternatively you can print 
+the entire list of orders in the document and retrieve the id that you want.
+
+![Screenshot (25)](https://user-images.githubusercontent.com/90613113/136754611-2fb96009-ea3e-40cd-b712-4b9919301d7e.png)
+
+![Screenshot (29)](https://user-images.githubusercontent.com/90613113/136755666-6044197c-ae09-4a25-9842-dab4f9f1656e.png)
