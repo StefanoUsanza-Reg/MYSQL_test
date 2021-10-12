@@ -31,21 +31,23 @@ app.get('/restock/nomi_prodotti/:API_key',(req,res)=>{
             "detail": "Ensure that the API_key included in the request is correct"
         })       
     }
-    var con = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "",
-        database: "restock"
-      });
-    con.connect(function(err) {
-        if (err) throw err;
-        QUERY= "SELECT prodotto.nome as nomeProdotto FROM prodotto"
-        con.query(QUERY, function (err, result, fields) {
+    else{
+        var con = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "restock"
+          });
+        con.connect(function(err) {
             if (err) throw err;
-            con.end()
-            res.status(200).send(result)
-        });
-    }) 
+            QUERY= "SELECT prodotto.nome as nomeProdotto FROM prodotto"
+            con.query(QUERY, function (err, result, fields) {
+                if (err) throw err;
+                con.end()
+                res.status(200).send(result)
+            });
+        }) 
+    }
 })
 
 //restock
@@ -58,39 +60,41 @@ app.get('/restock/:nome_prodotto/:quant/:priority/:API_key',(req,res)=>{
             "detail": "Ensure that the API_key included in the request is correct"
         })
     }
-    const {nome_prodotto} = req.params
-    const {quant} = req.params
-    const {priority} = req.params
-    let data = new Date()
-    QUERY = "SELECT prodotto.nome as nomeProdotto,prodotto.prezzo as prezzoFix, rivende.prezzo, rivende.quantità, rivenditore.nome as nomeRivenditore, rivenditore.spedizione_min, "+ 
-    "sconto.valore, sconto_extra.valore as valore_extra, sconto.importo_minimo, sconto.quantità_min, sconto_extra.data_inizio, sconto_extra.data_fine "+
-    "FROM prodotto, rivende, rivenditore, sconto, sconto_extra "+
-    "WHERE id_prodotto=prodotto.id "+
-    "and id_rivenditore=rivenditore.id "+
-    "and id_sconto = sconto.id "+
-    "and id_sconto_extra = sconto_extra.id "+
-    "and prodotto.nome='"
-    var con = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "",
-        database: "restock"
-        });
-    con.connect(function(err) {
-        if (err) throw err;
-        con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
+    else{
+        const {nome_prodotto} = req.params
+        const {quant} = req.params
+        const {priority} = req.params
+        let data = new Date()
+        QUERY = "SELECT prodotto.nome as nomeProdotto,prodotto.prezzo as prezzoFix, rivende.prezzo, rivende.quantità, rivenditore.nome as nomeRivenditore, rivenditore.spedizione_min, "+ 
+        "sconto.valore, sconto_extra.valore as valore_extra, sconto.importo_minimo, sconto.quantità_min, sconto_extra.data_inizio, sconto_extra.data_fine "+
+        "FROM prodotto, rivende, rivenditore, sconto, sconto_extra "+
+        "WHERE id_prodotto=prodotto.id "+
+        "and id_rivenditore=rivenditore.id "+
+        "and id_sconto = sconto.id "+
+        "and id_sconto_extra = sconto_extra.id "+
+        "and prodotto.nome='"
+        var con = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "restock"
+            });
+        con.connect(function(err) {
             if (err) throw err;
-            con.end()
-            if(result[0]==null)
-                res.status(404).send({
-                    "error": "API_key-0001",
-                    "message": "Incorrect API_key",
-                    "detail": "Ensure that the API_key included in the request is correct"
-                })
-            else
-                res.status(200).send(script.Restock(result,quant,data,priority))
-        });
-    })
+            con.query(QUERY+ nome_prodotto+"' and rivende.quantità>="+quant, function (err, result, fields) {
+                if (err) throw err;
+                con.end()
+                if(result[0]==null)
+                    res.status(404).send({
+                        "error": "API_key-0001",
+                        "message": "Incorrect API_key",
+                        "detail": "Ensure that the API_key included in the request is correct"
+                    })
+                else
+                    res.status(200).send(script.Restock(result,quant,data,priority))
+            });
+        })
+    }
 })
 
 // implementazione autenticazione
