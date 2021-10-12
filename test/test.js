@@ -1,6 +1,6 @@
 const assert = require('chai').assert
 const expect = require('chai').expect
-const app = require('../script')
+const app = require('../server/script')
 
 var mysql = require('mysql');
 
