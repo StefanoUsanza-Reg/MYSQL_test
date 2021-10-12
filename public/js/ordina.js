@@ -1,5 +1,3 @@
-const { response } = require("express")
-
 const API_key = 'qP7h9NOAlOsQSGo4H9OyuZHnxMesBe'
 const user = document.getElementById('username')
 const btnLogout = document.getElementById('logout')
@@ -48,12 +46,23 @@ fetch('https://server-express.glitch.me/genera/'+API_key
   },
   body: JSON.stringify(order[0])
 })
-.then(response=>response.json())
-.then(id=>{
-titolo.innerHTML = nome
-prezzoFix.innerHTML = fix + "€"
-prezzo_scontato.innerHTML = scontato + "€"
-guadagno.innerHTML = (Math.round((guad + Number.EPSILON) * 100) / 100) + "€"
-id.innerHTML = id  
-})  
+.then(response=>{
+  if(response.status== 200){
+    response.json()
+    .then(ID => {
+      titolo.innerHTML = nome
+      prezzoFix.innerHTML = fix + "€"
+      prezzo_scontato.innerHTML = scontato + "€"
+      guadagno.innerHTML = (Math.round((guad + Number.EPSILON) * 100) / 100) + "€"
+      id.innerHTML = ID  
+    })
+  }
+  else{
+    response.json()
+    .then(err =>{
+      console.error(err)
+    })
+  }
+
+})
 
