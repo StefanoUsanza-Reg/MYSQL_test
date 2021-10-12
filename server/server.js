@@ -53,7 +53,7 @@ app.get('/restock/:nome_prodotto/:quant/:priority/:API_key',(req,res)=>{
     const {API_key} = req.params
     if(API_key != process.env.API_key){
         res.status(401).send({
-            "error": "API_key-0001",
+            "error": "API_key-0002",
             "message": "Incorrect API_key",
             "detail": "Ensure that the API_key included in the request is correct"
         })
@@ -94,33 +94,52 @@ app.get('/restock/:nome_prodotto/:quant/:priority/:API_key',(req,res)=>{
 })
 
 // implementazione autenticazione
-app.get("/users/:name/:password",(req,res)=>{
-    const {name}= req.params
-    const {password}= req.params
-    var con = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "",
-        database: "users"
-      });
-    con.connect(function(err) {
-        if (err) throw err;
-        QUERY= "SELECT user.username, user.password FROM user WHERE user.username = '"+ name+"'"
-        con.query(QUERY, function (err, result, fields) {
+app.get("/users/:name/:password/:API_key",(req,res)=>{
+    const {API_key} = req.params
+    if(API_key != process.env.API_key){
+        res.status(401).send({
+            "error": "API_key-0003",
+            "message": "Incorrect API_key",
+            "detail": "Ensure that the API_key included in the request is correct"
+        })   
+    }
+    else{
+        const {name}= req.params
+        const {password}= req.params
+        var con = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "users"
+        });
+        con.connect(function(err) {
             if (err) throw err;
-            con.end()
-            //res.send(result)
-            const user = result
-            if(user!=""){
-                bcrypt.compare(password, user[0].password).then(function(result) {
-                    if(result)
-                        res.send(true)
-                    else
-                        res.send(false)
-                });    
-            }
-            else
-                res.send(false)
-        })
-    });
+            QUERY= "SELECT user.username, user.password FROM user WHERE user.username = '"+ name+"'"
+            con.query(QUERY, function (err, result, fields) {
+                if (err) throw err;
+                con.end()
+                //res.send(result)
+                const user = result
+                if(user!=""){
+                    bcrypt.compare(password, user[0].password).then(function(result) {
+                        if(result)
+                        res.status(200).send(true)
+                        else
+                        res.status(400).send({
+                            "error": "Password-0001",
+                            "message": "incorrect password",
+                            "detail": "Ensure that the password included in the request is correct"
+                        })
+                    });    
+                }
+                else
+                res.status(404).send({
+                    "error": "UserNotFound-0001",
+                    "message": "incorrect username",
+                    "detail": "Ensure that the username included in the request is correct"
+                })
+            })
+        });
+    }
 })
+    
