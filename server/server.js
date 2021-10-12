@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const app= express()
-const script = require('../script')
+const script = require('./script')
 const dotenv = require('dotenv');
 dotenv.config();
 
