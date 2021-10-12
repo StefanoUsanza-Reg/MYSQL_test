@@ -1,3 +1,4 @@
+const API_key = 'qP7h9NOAlOsQSGo4H9OyuZHnxMesBe'
 const btnRicerca = document.getElementById('ricerca')
 const tabella = document.getElementById("tabella")
 const tabella1= document.createElement("tbody")

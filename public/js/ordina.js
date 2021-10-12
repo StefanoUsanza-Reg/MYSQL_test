@@ -1,4 +1,4 @@
-API_key = 'qP7h9NOAlOsQSGo4H9OyuZHnxMesBe'
+const API_key = 'qP7h9NOAlOsQSGo4H9OyuZHnxMesBe'
 const user = document.getElementById('username')
 const btnLogout = document.getElementById('logout')
 btnLogout.onclick = ()=>{
