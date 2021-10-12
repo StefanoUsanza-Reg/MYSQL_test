@@ -1,3 +1,4 @@
+API_key = 'qP7h9NOAlOsQSGo4H9OyuZHnxMesBe'
 const user = document.getElementById('username')
 const btnLogout = document.getElementById('logout')
 btnLogout.onclick = ()=>{
@@ -28,7 +29,6 @@ var scontato = urlParams.get('prezzo_scontato')
 var quant = urlParams.get('quant')
 var guad = (fix*quant)-scontato 
 var prodotto = urlParams.get('prodotto')
-console.log(prodotto)
 
 const titolo= document.getElementById('titolo')
 const prezzoFix = document.getElementById('prezzoFix')
@@ -37,8 +37,9 @@ const guadagno = document.getElementById('guadagno')
 const id = document.getElementById('id')
 
 var order =[]
-order.push({supplier: nome,prodotto: 'Philips monitor 17”',quant: quant,prezzoFix: fix + "€",prezzoFinal: scontato + "€",profit: (Math.round((guad + Number.EPSILON) * 100) / 100) + "€"})
-fetch('https://server-express.glitch.me/genera',{
+order.push({supplier: nome,prodotto: prodotto,quant: quant,prezzoFix: fix + "€",prezzoFinal: scontato + "€",profit: (Math.round((guad + Number.EPSILON) * 100) / 100) + "€"})
+fetch('https://server-express.glitch.me/genera/'+API_key
+,{
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
