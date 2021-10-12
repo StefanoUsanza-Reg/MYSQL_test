@@ -4,6 +4,8 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const app= express()
 const script = require('../script')
+const dotenv = require('dotenv');
+dotenv.config();
 
 app.use(cors());
 
@@ -20,7 +22,15 @@ app.listen(3000, ()=>{
 })
 
 //recupero nomi prodotti dal server
-app.get('/restock/nomi_prodotti',(req,res)=>{
+app.get('/restock/nomi_prodotti/:API_key',(req,res)=>{
+    const {API_key}= req.params
+    if(API_key != process.env.API_key){
+        res.status(401).send({
+            "error": "API_key-0001",
+            "message": "Incorrect API_key",
+            "detail": "Ensure that the API_key included in the request is correct"
+        })       
+    }
     var con = mysql.createConnection({
         host: "localhost",
         user: "root",
@@ -33,13 +43,21 @@ app.get('/restock/nomi_prodotti',(req,res)=>{
         con.query(QUERY, function (err, result, fields) {
             if (err) throw err;
             con.end()
-            res.send(result)
+            res.status(200).send(result)
         });
-    })
+    }) 
 })
 
 //restock
-app.get('/restock/:nome_prodotto/:quant/:priority',(req,res)=>{
+app.get('/restock/:nome_prodotto/:quant/:priority/:API_key',(req,res)=>{
+    const {API_key} = req.params
+    if(API_key != process.env.API_key){
+        res.status(401).send({
+            "error": "API_key-0001",
+            "message": "Incorrect API_key",
+            "detail": "Ensure that the API_key included in the request is correct"
+        })
+    }
     const {nome_prodotto} = req.params
     const {quant} = req.params
     const {priority} = req.params
@@ -64,9 +82,13 @@ app.get('/restock/:nome_prodotto/:quant/:priority',(req,res)=>{
             if (err) throw err;
             con.end()
             if(result[0]==null)
-                res.send(result)
+                res.status(404).send({
+                    "error": "API_key-0001",
+                    "message": "Incorrect API_key",
+                    "detail": "Ensure that the API_key included in the request is correct"
+                })
             else
-                res.send(script.Restock(result,quant,data,priority))
+                res.status(200).send(script.Restock(result,quant,data,priority))
         });
     })
 })
@@ -101,8 +123,4 @@ app.get("/users/:name/:password",(req,res)=>{
                 res.send(false)
         })
     });
-})
-
-app.get("/order",(req,res)=>{
-    res.send("hello")
 })

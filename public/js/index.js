@@ -63,15 +63,30 @@ btnRicerca.onclick = ()=>{
     error.innerHTML = ""
     if(nome_prodotto!="" && quant!="" && quant>0 && priority!="select a priority"){
     //ricerca dei rivenditori per il restock del prodotto richiesto
-    fetch('http://localhost:3000/restock/'+nome_prodotto+'/'+quant + '/'+priority)
-    .then(response => response.json())
-    .then(result => {
-        //trovati dei rivenditori che possono soddisfare la richiesta
-        if(result[0]==null)
-            error.innerHTML = "nessun rivenditore trovato"
-        
-        visualizza(result,quant,nome_prodotto)  
-        });
+    fetch('http://localhost:3000/restock/'+nome_prodotto+'/'+quant + '/'+priority+'/'+API_key)
+        .then(response => {
+            if(response.status==200)
+            response.json()
+            .then(result=>{
+                visualizza(result,quant,nome_prodotto)
+            })
+            else{
+                if(response.status==404){
+                    response.json()
+                    .then(err => {
+                        console.error(err)
+                        error.innerHTML = "nessun rivenditore trovato"
+                        visualizza(null,quant,nome_prodotto)
+                    })
+                }
+                else{
+                    response.json()
+                    .then(err => {
+                        console.error(err) 
+                    })
+                }
+            }
+        })
     }
     else if(quant=="" || quant<=0){
         error.innerHTML = "inserisci una quantità valida"
@@ -83,8 +98,16 @@ btnRicerca.onclick = ()=>{
     }
 }
 //richiesta al server dei nomi dei prodotti
-fetch('http://localhost:3000/restock/nomi_prodotti')
-.then(response => response.json())
-.then(result => {
-    search(result)
+fetch('http://localhost:3000/restock/nomi_prodotti/'+API_key)
+.then(response => {
+    if(response.status==200){
+        response.json().then(result => {
+            search(result)    
+        })
+    }
+    else{
+        response.json().then(error => {
+              console.error(error)
+        })   
+    }   
 })
